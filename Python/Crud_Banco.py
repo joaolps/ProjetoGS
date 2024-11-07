@@ -16,3 +16,17 @@ def inserir_registro(conn):
         print("Registro inserido com sucesso.")
     except Exception as e:
        raise ErroBanco(e)
+    
+def consultar_registros(conn):
+    try:
+        cursor = conn.cursor()
+        filtro = input("Digite um valor de filtro (ex: nome): ")
+        sql = "SELECT * FROM tabela_teste WHERE nome LIKE :filtro"
+        cursor.execute(sql, {'filtro': f"%{filtro}%"})
+        registros = cursor.fetchall()
+    
+        for registro in registros:
+            print(registro)
+        return registros
+    except Exception as e:
+        raise ErroBanco(e)

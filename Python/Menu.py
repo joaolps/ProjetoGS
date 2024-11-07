@@ -1,4 +1,4 @@
-from Crud_Banco import inserir_registro
+import Crud_Banco as crud
 from Banco import conectar_db
 
 def menu():
@@ -18,16 +18,16 @@ def menu():
 
         if opcao.isdigit(): 
             opcao = int(opcao)
-            if opcao == 1:
-                inserir_registro(conn)
-            elif opcao == 5:
-                print("Saindo...")
-                break
-            else:
-                print("Opção inválida. Tente novamente.")
+        if opcao == 1:
+            crud.inserir_registro(conn)
+        elif opcao == 2:
+            crud.consultar_registros(conn)
+        elif opcao == 5:
+            print("Saindo...")
+            break
         else:
-            print("Entrada inválida. Por favor, insira um número.")
-
+             print("Opção inválida. Tente novamente.")
+       
     conn.close()
 
 if __name__ == "__main__":
