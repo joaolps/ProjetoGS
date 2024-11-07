@@ -27,12 +27,18 @@ def inserir_registro(conn):
 def inserir_registro_api(conn, nome, idade):
     try:
         cursor = conn.cursor()
-        sql = "INSERT INTO tabela_teste (nome, idade) VALUES (:nome, :idade)"
-        cursor.execute(sql, {'nome': nome, 'idade': idade})
+        id_saida = cursor.var(int)  
+        sql = """
+        INSERT INTO tabela_teste (nome, idade)
+        VALUES (:nome, :idade)
+        RETURNING id INTO :id_saida
+        """
+        cursor.execute(sql, {'nome': nome, 'idade': idade, 'id_saida': id_saida})
         conn.commit()
         print("Registro inserido com sucesso.")
+        return {'nome': nome, 'idade': idade, 'id': id_saida.getvalue()}
     except Exception as e:
-        raise ErroBanco(e) 
+        raise ErroBanco(e)
 
 def consultar_registros(conn):
     try:

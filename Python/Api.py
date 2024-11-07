@@ -17,11 +17,11 @@ def inserir_registros():
     dados = request.json
     try:
         if "nome" not in dados or "idade" not in dados:
-            return {"Erro": "campos nome e registro devem ser preenchidos."}, 400
+            return {"Erro": "campos nome e idade devem ser preenchidos."}, 400
         user = Crud_Banco.inserir_registro_api(conn, dados["nome"], dados["idade"])
-        return jsonify(user), 201
+        return jsonify(user), 201 
     except ErroBanco as erro:
         return {"error": str(erro)}, 500
-    
+ 
 if __name__ == "__main__":
     app.run(debug=True)
