@@ -61,4 +61,4 @@ def excluir_registro(conn):
         conn.commit()
         print("Registro excluído com sucesso.")
     except oracledb.DatabaseError as e:
-        print("Erro ao excluir o registro:", e)
+         raise ErroBanco(e)
