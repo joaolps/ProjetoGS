@@ -1,5 +1,6 @@
 import json
 import oracledb
+from ErrorBanco import ErrorBanco
 from Banco import conectar_db
 
 def inserir_registro(conn):
@@ -13,5 +14,5 @@ def inserir_registro(conn):
         cursor.execute(sql, {'nome': nome, 'idade': idade})
         conn.commit()
         print("Registro inserido com sucesso.")
-    except oracledb.DatabaseError as e:
-        print("Erro ao inserir o registro:", e)
+    except Exception as e:
+       raise ErrorBanco(e)
