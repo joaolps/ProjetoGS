@@ -1,2 +1,2 @@
 # ProjetoGS
-Repositório crirado para o desenvolvimento da GlobalSolution
+Repositório criado para o desenvolvimento da GlobalSolution. 
