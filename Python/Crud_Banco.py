@@ -14,16 +14,26 @@ def exportar_para_json(dados):
 def inserir_registro(conn):
     try:
         cursor = conn.cursor()
-        #exemplo de tabela basica(nome, idade) a gente vai modificar esses campos depois, joao ainda vai criar as tabelas -- 
         nome = input("Digite o nome: ")
         idade = int(input("Digite a idade: "))
         sql = "INSERT INTO tabela_teste (nome, idade) VALUES (:nome, :idade)"
         cursor.execute(sql, {'nome': nome, 'idade': idade})
         conn.commit()
         print("Registro inserido com sucesso.")
+        return {'nome': nome, 'idade': idade}
     except Exception as e:
-       raise ErroBanco(e)
+        raise ErroBanco(e)  
     
+def inserir_registro_api(conn, nome, idade):
+    try:
+        cursor = conn.cursor()
+        sql = "INSERT INTO tabela_teste (nome, idade) VALUES (:nome, :idade)"
+        cursor.execute(sql, {'nome': nome, 'idade': idade})
+        conn.commit()
+        print("Registro inserido com sucesso.")
+    except Exception as e:
+        raise ErroBanco(e) 
+
 def consultar_registros(conn):
     try:
         cursor = conn.cursor()
