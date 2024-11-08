@@ -53,6 +53,20 @@ def consultar_registros(conn):
         return registros
     except Exception as e:
         raise ErroBanco(e)
+    
+def consultar_registros_api(conn, filtro):
+    try:
+        cursor = conn.cursor()
+        sql = "SELECT * FROM tabela_teste WHERE nome LIKE :filtro"
+        cursor.execute(sql, {'filtro': f"%{filtro}%"})
+        registros = cursor.fetchall()
+    
+        for registro in registros:
+            print(registro)
+        return registros
+    except Exception as e:
+        raise ErroBanco(e)
+
 
 def atualizar_registro(conn):
     try:

@@ -12,7 +12,7 @@ def salvar_json_em_json(dados):
     with open("itens.json", "w", encoding="utf-8") as arquivo:
         json.dump(dados, arquivo, ensure_ascii=False, indent=4)
 
-@app.route("/inserir", methods=["POST"])
+@app.route("/registro", methods=["POST"])
 def inserir_registros():
     dados = request.json
     try:
@@ -22,6 +22,16 @@ def inserir_registros():
         return jsonify(user), 201 
     except ErroBanco as erro:
         return {"error": str(erro)}, 500
- 
+    
+@app.route("/registro", methods=["GET"])
+def consultar_registros():
+    filtro = request.args.get('filtro', '')
+    try:
+        usuarios = Crud_Banco.consultar_registros_api(conn, filtro) 
+        salvar_json_em_json(usuarios)  
+        return jsonify(usuarios), 200  
+    except ErroBanco as e:
+        return {"error": str(e)}, 500
+
 if __name__ == "__main__":
     app.run(debug=True)
