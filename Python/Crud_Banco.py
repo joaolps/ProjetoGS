@@ -59,11 +59,9 @@ def consultar_registros_api(conn, filtro):
         cursor = conn.cursor()
         sql = "SELECT * FROM tabela_teste WHERE nome LIKE :filtro"
         cursor.execute(sql, {'filtro': f"%{filtro}%"})
-        registros = cursor.fetchall()
-    
+        registros = cursor.fetchall() 
         for registro in registros:
-            print(registro)
-        return registros
+            return registros
     except Exception as e:
         raise ErroBanco(e)
 
@@ -74,6 +72,16 @@ def atualizar_registro(conn):
         id_registro = int(input("Digite o ID do registro para atualizar: "))
         novo_nome = input("Digite o novo nome: ")
         
+        sql = "UPDATE tabela_teste SET nome = :novo_nome WHERE id = :id_registro"
+        cursor.execute(sql, {'novo_nome': novo_nome, 'id_registro': id_registro})
+        conn.commit()
+        print("Registro atualizado com sucesso.")
+    except oracledb.DatabaseError as e:
+          raise ErroBanco(e)
+    
+def atualizar_registro_api(conn, id_registro, novo_nome):
+    try:
+        cursor = conn.cursor()
         sql = "UPDATE tabela_teste SET nome = :novo_nome WHERE id = :id_registro"
         cursor.execute(sql, {'novo_nome': novo_nome, 'id_registro': id_registro})
         conn.commit()

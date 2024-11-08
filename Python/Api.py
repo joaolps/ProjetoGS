@@ -32,6 +32,24 @@ def consultar_registros():
         return jsonify(usuarios), 200  
     except ErroBanco as e:
         return {"error": str(e)}, 500
+    
+@app.route("/registro/<id_registro>", methods=['PUT'])
+def atualizar_registros(id_registro):
+    data = request.json
+    atualizar_nome = data.get('novo_nome')  # Ajustado para 'novo_nome'
+    if not atualizar_nome:
+        return jsonify({'erro': 'O campo novo_nome é obrigatório.'}), 400
+    try: 
+        conn = conectar_db()
+        data = Crud_Banco.atualizar_registro_api(conn, id_registro, atualizar_nome)
+        print(data)
+        return jsonify(data)
+    except ErroBanco as e:
+        return {"error": str(e)}, 500
+    except Exception as e:
+        return {"error": str(e)}
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
