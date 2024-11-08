@@ -42,6 +42,8 @@ def inserir_registro_api(conn, nome, idade):
         return {'nome': nome, 'idade': idade, 'id': id_saida.getvalue()}
     except Exception as e:
         raise ErroBanco(e)
+    finally:
+        cursor.close()
 
 def consultar_registros(conn):
     try:
@@ -67,6 +69,8 @@ def consultar_registros_api(conn, filtro):
             return registros
     except Exception as e:
         raise ErroBanco(e)
+    finally:
+        cursor.close()
 
 
 def atualizar_registro(conn):
@@ -94,6 +98,8 @@ def atualizar_registro_api(conn, id_saida, novo_nome):
         return {'nome': novo_nome, 'id': id_saida}
     except oracledb.DatabaseError as e:
         raise ErroBanco(e)
+    finally:
+        cursor.close()
 
 
 def excluir_registro(conn):
@@ -107,3 +113,4 @@ def excluir_registro(conn):
         print("Registro excluído com sucesso.")
     except oracledb.DatabaseError as e:
          raise ErroBanco(e)
+    
