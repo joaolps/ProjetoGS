@@ -3,6 +3,9 @@ import oracledb
 from ErrorBanco import ErroBanco
 from Banco import conectar_db
 
+#Funções com "api" no final são exclusivas do Api.py
+#Funções sem "api" no final são exclusivas do Menu.py
+
 def exportar_para_json(dados):
     try:
         with open("consulta.json", "w") as arquivo_json:

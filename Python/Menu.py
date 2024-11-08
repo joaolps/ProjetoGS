@@ -1,4 +1,4 @@
-from Crud_Banco import inserir_registro, consultar_registros, atualizar_registro, excluir_registro, exportar_para_json
+from Crud_Banco import inserir_registro, consultar_registros, atualizar_registro, excluir_registro
 from Banco import conectar_db
 
 def menu():

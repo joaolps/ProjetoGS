@@ -49,7 +49,5 @@ def atualizar_registros(id_registro):
     except Exception as e:
         return {"error": str(e)}
 
-
-
 if __name__ == "__main__":
     app.run(debug=True)
