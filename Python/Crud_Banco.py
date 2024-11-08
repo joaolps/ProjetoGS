@@ -79,15 +79,19 @@ def atualizar_registro(conn):
     except oracledb.DatabaseError as e:
           raise ErroBanco(e)
     
-def atualizar_registro_api(conn, id_registro, novo_nome):
+def atualizar_registro_api(conn, id_saida, novo_nome):
     try:
         cursor = conn.cursor()
+        if not id_saida or not novo_nome:
+            raise ValueError("ID e nome não podem ser nulos ou vazios.")
         sql = "UPDATE tabela_teste SET nome = :novo_nome WHERE id = :id_registro"
-        cursor.execute(sql, {'novo_nome': novo_nome, 'id_registro': id_registro})
-        conn.commit()
+        cursor.execute(sql, {'novo_nome': novo_nome, 'id_registro': id_saida})
+        conn.commit()  
         print("Registro atualizado com sucesso.")
+        return {'nome': novo_nome, 'id': id_saida}
     except oracledb.DatabaseError as e:
-          raise ErroBanco(e)
+        raise ErroBanco(e)
+
 
 def excluir_registro(conn):
     try:
