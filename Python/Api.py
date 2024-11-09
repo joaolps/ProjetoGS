@@ -48,6 +48,16 @@ def atualizar_registros(id_registro):
         return {"error": str(e)}, 500
     except Exception as e:
         return {"error": str(e)}
+    
+@app.route("/registro/<id_registro>", methods=['DELETE'])
+def excluir_registro(id_registro):
+    try:
+        Crud_Banco.excluir_registro_api(conn, id_registro)
+        return "", 204
+    except ErroBanco as e:
+           return {"error": str(e)}, 500
+    except Exception as e:
+        return {"error": str(e)}, 404
 
 if __name__ == "__main__":
     app.run(debug=True)

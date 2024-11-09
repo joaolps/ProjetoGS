@@ -72,7 +72,6 @@ def consultar_registros_api(conn, filtro):
     finally:
         cursor.close()
 
-
 def atualizar_registro(conn):
     try:
         cursor = conn.cursor()
@@ -101,12 +100,21 @@ def atualizar_registro_api(conn, id_saida, novo_nome):
     finally:
         cursor.close()
 
-
 def excluir_registro(conn):
     try:
         cursor = conn.cursor()
         id_registro = int(input("Digite o ID do registro para excluir: "))
         
+        sql = "DELETE FROM tabela_teste WHERE id = :id_registro"
+        cursor.execute(sql, {'id_registro': id_registro})
+        conn.commit()
+        print("Registro excluído com sucesso.")
+    except oracledb.DatabaseError as e:
+         raise ErroBanco(e)
+    
+def excluir_registro_api(conn, id_registro):
+    try:
+        cursor = conn.cursor()
         sql = "DELETE FROM tabela_teste WHERE id = :id_registro"
         cursor.execute(sql, {'id_registro': id_registro})
         conn.commit()
