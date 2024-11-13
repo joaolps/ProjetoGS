@@ -3,15 +3,41 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useState } from 'react';
 
+
+const reviews = [
+  {
+    id: 1,
+    name: "Cliente Satisfeito 1",
+    rating: 5,
+    feedback: "Este projeto transformou minha visão sobre sustentabilidade!",
+    image: "/imagem3.png",
+  },
+  {
+    id: 2,
+    name: "Cliente Satisfeito 2",
+    rating: 4,
+    feedback: "A inovação e o compromisso ambiental são notáveis!",
+    image: "/imagem2.png",
+  },
+  {
+    id: 3,
+    name: "Cliente Satisfeito 3",
+    rating: 3,
+    feedback: "Ótima iniciativa para um futuro mais verde!",
+    image: "/imagem1.png",
+  },
+];
+
 export default function Home() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [hoveredReview, setHoveredReview] = useState<number | null>(null);
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-900 text-white">
       <Header />
       <main className="flex-grow flex flex-col items-center justify-center p-8">
         
-        {/* Seção Hero */}
+        
         <section className="text-center mb-16">
           <h1 className="text-5xl font-extrabold text-neon-green mb-4">
             Bem-vindo ao Futuro da Sustentabilidade
@@ -24,7 +50,6 @@ export default function Home() {
           </button>
         </section>
 
-        {/* Seção Funcionalidades */}
         <section className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center max-w-5xl">
           {[1, 2].map((cardIndex) => (
             <div
@@ -51,7 +76,7 @@ export default function Home() {
               >
                 <div className="mb-4 w-40 h-24 relative border-2 border-neon-green rounded-lg overflow-hidden flex items-center justify-center">
                   <img
-                    src={`/imagem${cardIndex}.png`}  // Caminho das imagens dentro da pasta public
+                    src={`/imagem${cardIndex}.png`}
                     alt={`Imagem ${cardIndex}`}
                     className="object-cover w-full h-full"
                   />
@@ -76,13 +101,51 @@ export default function Home() {
           ))}
         </section>
 
-        {/* Depoimentos (opcional) */}
-        <section className="text-center my-16 max-w-3xl">
-          <h3 className="text-3xl font-bold text-neon-green mb-4">O Que Dizem Nossos Usuários</h3>
-          <p className="text-gray-300 italic">
-            “Este projeto transformou a maneira como pensamos sobre sustentabilidade e inovação tecnológica.”
-          </p>
-          <p className="text-gray-300 mt-2">— Cliente Satisfeito</p>
+        <section className="text-center my-16 max-w-4xl">
+          <h3 className="text-3xl font-bold text-neon-green mb-8">O Que Dizem Nossos Usuários</h3>
+          <div className="flex gap-4 overflow-x-auto p-4">
+            {reviews.map((review) => (
+              <div
+                key={review.id}
+                onMouseEnter={() => setHoveredReview(review.id)}
+                onMouseLeave={() => setHoveredReview(null)}
+                className={`relative flex-shrink-0 w-64 p-4 rounded-lg transition-all duration-500 ease-out transform bg-gray-800 ${
+                  hoveredReview === review.id ? 'scale-105 shadow-neon-green' : ''
+                }`}
+              >
+                {/* Imagem do Cliente */}
+                <img
+                  src={review.image}
+                  alt={review.name}
+                  className="w-24 h-24 rounded-full object-cover mx-auto mb-4 border-2 border-neon-green"
+                />
+
+                {/* Estrelas */}
+                <div className="flex justify-center mb-4">
+                  {[...Array(5)].map((_, index) => (
+                    <span
+                      key={index}
+                      className={`text-xl ${
+                        index < review.rating ? 'text-yellow-400' : 'text-gray-500'
+                      }`}
+                    >
+                      &#9733;
+                    </span>
+                  ))}
+                </div>
+
+                {/* Conteúdo do Card */}
+                <div
+                  className={`transition-opacity duration-700 ease-in-out ${
+                    hoveredReview === review.id ? 'opacity-100' : 'opacity-0'
+                  }`}
+                >
+                  <p className="text-lg font-semibold text-neon-green mb-2">{review.name}</p>
+                  <p className="text-gray-300 italic">{review.feedback}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </section>
         
       </main>
