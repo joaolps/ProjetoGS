@@ -1,0 +1,9 @@
+/* src/styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #2d2d2d; /* Cor de fundo cinza escuro */
+  color: red; /* Cor do texto branco */
+}
