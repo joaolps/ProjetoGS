@@ -1,61 +1,30 @@
-import oracledb
-from Banco import conectar_db  
-from Usuario import inserir_registro, consultar_registros, atualizar_registro, excluir_registro, exportar_para_json
-from ErrorBanco import ErroBanco
+import Menu_Empresa
+import Menu_Usuario
 
-def exibir_menu():
-    print("\n===== MENU =====")
-    print("1. Inserir Registro")
-    print("2. Consultar Registros")
-    print("3. Atualizar Registro")
-    print("4. Excluir Registro")
-    print("5. Exportar Dados para JSON")
-    print("6. Sair")
-    print("================")
+def exibir_menu_principal():
+    print("\n===== MENU PRINCIPAL =====")
+    print("1. Entrar como Usuario")
+    print("2. Entrar como Empresa")
+    print("3. Sair")
+    print("===========================")
 
 def main():
-    try:
-        # Conectar ao banco de dados
-        conn = conectar_db()
+    while True:
+        exibir_menu_principal()
+        opcao = input("Escolha uma opção: ")
 
-        while True:
-            exibir_menu()
-            opcao = input("Escolha uma opção: ")
-
-            if opcao == "1":
-                try:
-                    inserir_registro(conn)
-                except Exception as MsgErro:
-                    print(MsgErro.args[0])
-            elif opcao == "2":
-                # Consultar registros
-                consultar_registros(conn)
-            elif opcao == "3":
-                # Atualizar um registro existente
-                atualizar_registro(conn)
-            elif opcao == "4":
-                # Excluir um registro
-                excluir_registro(conn)
-            elif opcao == "5":
-                # Exportar dados para JSON
-                registros = consultar_registros(conn)
-                if registros:
-                    exportar_para_json(registros)
-            elif opcao == "6":
-                # Sair do programa
-                print("Saindo...")
-                break
-            else:
-                print("Opção inválida! Tente novamente.")
-    
-    except ErroBanco as e:
-        print(f"Erro de banco de dados: {e}")
-    except oracledb.DatabaseError as e:
-        print(f"Erro na conexão ou execução no banco: {e}")
-    finally:
-        if 'conn' in locals() and conn:
-            conn.close()
-            print("Conexão com o banco de dados fechada.")
+        if opcao == "1":
+            print("\nIniciando Menu USER...")
+            Menu_Usuario.main()  
+        elif opcao == "2":
+            print("\nIniciando Menu EMP...")
+            Menu_Empresa.main()  
+        elif opcao == "3":
+            print("Saindo...")
+            break
+        else:
+            print("Opção inválida! Tente novamente.")
 
 if __name__ == "__main__":
     main()
+# Chama a função principal do menu da empres
