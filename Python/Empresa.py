@@ -86,12 +86,12 @@ def consultar_registros(conn):
 def atualizar_registro(conn):
     try:
         cursor = conn.cursor()
-        id_usuario = int(input("Digite o ID do registro para atualizar: "))
+        id_empresa = int(input("Digite o ID do registro para atualizar: "))
         
         # Verificar se o ID existe
-        cursor.execute("SELECT * FROM TBL_EMPRESA WHERE id_usuario = :id_usuario", {'id_usuario': id_usuario})
+        cursor.execute("SELECT * FROM TBL_EMPRESA WHERE id_empresa = :id_empresa", {'id_empresa': id_empresa})
         if not cursor.fetchone():
-            print(f"Nenhum registro encontrado com o ID {id_usuario}.")
+            print(f"Nenhum registro encontrado com o ID {id_empresa}.")
             return
         
         novo_nome = input("Digite o novo nome: ")
@@ -101,9 +101,9 @@ def atualizar_registro(conn):
         sql = """
         UPDATE TBL_EMPRESA 
         SET nome = :novo_nome, email = :novo_email, telefone = :novo_telefone 
-        WHERE id_usuario = :id_usuario
+        WHERE id_empresa = :id_empresa
         """
-        cursor.execute(sql, {'novo_nome': novo_nome, 'novo_email': novo_email, 'novo_telefone': novo_telefone, 'id_usuario': id_usuario})
+        cursor.execute(sql, {'novo_nome': novo_nome, 'novo_email': novo_email, 'novo_telefone': novo_telefone, 'id_empresa': id_empresa})
         conn.commit()
         print("Registro atualizado com sucesso.")
     except oracledb.DatabaseError as e:
@@ -113,16 +113,16 @@ def atualizar_registro(conn):
 def excluir_registro(conn):
     try:
         cursor = conn.cursor()
-        id_usuario = int(input("Digite o ID do registro para excluir: "))
+        id_empresa = int(input("Digite o ID do registro para excluir: "))
         
         # Verificar se o ID existe
-        cursor.execute("SELECT * FROM TBL_EMPRESA WHERE id_usuario = :id_usuario", {'id_usuario': id_usuario})
+        cursor.execute("SELECT * FROM TBL_EMPRESA WHERE id_empresa = :id_empresa", {'id_empresa': id_empresa})
         if not cursor.fetchone():
-            print(f"Nenhum registro encontrado com o ID {id_usuario}.")
+            print(f"Nenhum registro encontrado com o ID {id_empresa}.")
             return
         
-        sql = "DELETE FROM TBL_EMPRESA WHERE id_usuario = :id_usuario"
-        cursor.execute(sql, {'id_usuario': id_usuario})
+        sql = "DELETE FROM TBL_EMPRESA WHERE id_empresa = :id_empresa"
+        cursor.execute(sql, {'id_empresa': id_empresa})
         conn.commit()
         print("Registro excluído com sucesso.")
     except oracledb.DatabaseError as e:

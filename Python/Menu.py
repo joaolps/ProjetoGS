@@ -27,4 +27,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-# Chama a função principal do menu da empres
