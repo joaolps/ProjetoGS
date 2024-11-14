@@ -1,37 +1,59 @@
-from Crud_Banco import inserir_registro, consultar_registros, atualizar_registro, excluir_registro
-from Banco import conectar_db
+import oracledb
+from Banco import conectar_db  # Supondo que conectar_db seja uma função que retorna a conexão com o banco
+from Crud_Banco import inserir_registro, consultar_registros, atualizar_registro, excluir_registro, exportar_para_json
+from ErrorBanco import ErroBanco
 
-def menu():
-    conn = conectar_db
-    if conn is None:
-        return
+def exibir_menu():
+    print("\n===== MENU =====")
+    print("1. Inserir Registro")
+    print("2. Consultar Registros")
+    print("3. Atualizar Registro")
+    print("4. Excluir Registro")
+    print("5. Exportar Dados para JSON")
+    print("6. Sair")
+    print("================")
 
-    while True:
-        print("\nMenu de Opções:")
-        print("1. Inserir Registro")
-        print("2. Consultar Registros")
-        print("3. Atualizar Registro")
-        print("4. Excluir Registro")
-        print("6. Sair")
-        
-        opcao = input("Escolha uma opção: ")
-        
-        if opcao == '1':
-            inserir_registro(conn)
-        elif opcao == '2':
-            consultar_registros(conn)
-        elif opcao == '3':
-            atualizar_registro(conn)
-        elif opcao == '4':
-            excluir_registro(conn)
-        elif opcao == '5':
-            print("Saindo...")
-            break
-        else:
-            print("Opção inválida. Tente novamente.")
+def main():
+    try:
+        # Conectar ao banco de dados
+        conn = conectar_db()
+
+        while True:
+            exibir_menu()
+            opcao = input("Escolha uma opção: ")
+
+            if opcao == "1":
+                # Inserir novo registro
+                inserir_registro(conn)
+            elif opcao == "2":
+                # Consultar registros
+                consultar_registros(conn)
+            elif opcao == "3":
+                # Atualizar um registro existente
+                atualizar_registro(conn)
+            elif opcao == "4":
+                # Excluir um registro
+                excluir_registro(conn)
+            elif opcao == "5":
+                # Exportar dados para JSON
+                registros = consultar_registros(conn)
+                if registros:
+                    exportar_para_json(registros)
+            elif opcao == "6":
+                # Sair do programa
+                print("Saindo...")
+                break
+            else:
+                print("Opção inválida! Tente novamente.")
     
-    conn.close()
+    except ErroBanco as e:
+        print(f"Erro de banco de dados: {e}")
+    except oracledb.DatabaseError as e:
+        print(f"Erro na conexão ou execução no banco: {e}")
+    finally:
+        if 'conn' in locals() and conn:
+            conn.close()
+            print("Conexão com o banco de dados fechada.")
 
-# Executa o menu ao rodar o arquivo
 if __name__ == "__main__":
-    menu()
+    main()

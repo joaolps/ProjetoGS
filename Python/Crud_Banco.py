@@ -1,124 +1,121 @@
 import json
 import oracledb
 from ErrorBanco import ErroBanco
+import re
 from Banco import conectar_db
 
-#Funções com "api" no final são exclusivas do Api.py
-#Funções sem "api" no final são exclusivas do Menu.py
-
-def exportar_para_json(dados):
+def exportar_para_json(dados, arquivo="consulta.json"):
+    if not dados:
+        print("Nenhum dado para exportar.")
+        return
     try:
-        with open("consulta.json", "w") as arquivo_json:
+        with open(arquivo, "w") as arquivo_json:
             json.dump([dict(row) for row in dados], arquivo_json, indent=4)
-        print("Dados exportados para consulta.json com sucesso.")
+        print(f"Dados exportados para {arquivo} com sucesso.")
     except Exception as e:
-          raise ErroBanco(e)
+        raise ErroBanco(e)
+
+
+def validar_cpf(cpf):
+   
+    return len(str(cpf)) == 11 and cpf.isdigit()
 
 def inserir_registro(conn):
     try:
         cursor = conn.cursor()
         nome = input("Digite o nome: ")
-        idade = int(input("Digite a idade: "))
-        sql = "INSERT INTO tabela_teste (nome, idade) VALUES (:nome, :idade)"
-        cursor.execute(sql, {'nome': nome, 'idade': idade})
-        conn.commit()
-        print("Registro inserido com sucesso.")
-        return {'nome': nome, 'idade': idade}
-    except Exception as e:
-        raise ErroBanco(e)  
-    
-def inserir_registro_api(conn, nome, idade):
-    try:
-        cursor = conn.cursor()
-        id_saida = cursor.var(int)  
+        cpf = input("Digite seu CPF: ")
+        
+        if not validar_cpf(cpf):
+            print("CPF inválido.")
+            return
+        
+        email = input("Digite seu e-mail: ")
+        telefone = input("Digite seu telefone: ")
+        
+        # Validação simples do formato do e-mail
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            print("E-mail inválido.")
+            return
+        
         sql = """
-        INSERT INTO tabela_teste (nome, idade)
-        VALUES (:nome, :idade)
-        RETURNING id INTO :id_saida
+        INSERT INTO TBL_USUARIO (nome, cpf, email, telefone) 
+        VALUES (:nome, :cpf, :email, :telefone)
         """
-        cursor.execute(sql, {'nome': nome, 'idade': idade, 'id_saida': id_saida})
+        cursor.execute(sql, {'nome': nome, 'cpf': cpf, 'email': email, 'telefone': telefone})
         conn.commit()
         print("Registro inserido com sucesso.")
-        return {'nome': nome, 'idade': idade, 'id': id_saida.getvalue()}
+        return {'nome': nome, 'cpf': cpf, 'email': email, 'telefone': telefone}
     except Exception as e:
         raise ErroBanco(e)
-    finally:
-        cursor.close()
 
 def consultar_registros(conn):
     try:
         cursor = conn.cursor()
-        filtro = input("Digite um valor de filtro (ex: nome): ")
-        sql = "SELECT * FROM tabela_teste WHERE nome LIKE :filtro"
+        filtro = input("Digite um valor de filtro (ex: nome ou cpf): ").strip()
+        
+        if not filtro:
+            print("Filtro vazio. Operação cancelada.")
+            return []
+        
+        sql = "SELECT * FROM TBL_USUARIO WHERE nome LIKE :filtro OR cpf LIKE :filtro"
         cursor.execute(sql, {'filtro': f"%{filtro}%"})
         registros = cursor.fetchall()
-    
-        for registro in registros:
-            print(registro)
+        
+        if not registros:
+            print("Nenhum registro encontrado.")
+        else:
+            for registro in registros:
+                print(registro)
+        
         return registros
     except Exception as e:
         raise ErroBanco(e)
-    
-def consultar_registros_api(conn, filtro):
-    try:
-        cursor = conn.cursor()
-        sql = "SELECT * FROM tabela_teste WHERE nome LIKE :filtro"
-        cursor.execute(sql, {'filtro': f"%{filtro}%"})
-        registros = cursor.fetchall() 
-        for registro in registros:
-            return registros
-    except Exception as e:
-        raise ErroBanco(e)
-    finally:
-        cursor.close()
+
 
 def atualizar_registro(conn):
     try:
         cursor = conn.cursor()
-        id_registro = int(input("Digite o ID do registro para atualizar: "))
-        novo_nome = input("Digite o novo nome: ")
+        id_usuario = int(input("Digite o ID do registro para atualizar: "))
         
-        sql = "UPDATE tabela_teste SET nome = :novo_nome WHERE id = :id_registro"
-        cursor.execute(sql, {'novo_nome': novo_nome, 'id_registro': id_registro})
+        # Verificar se o ID existe
+        cursor.execute("SELECT * FROM TBL_USUARIO WHERE id_usuario = :id_usuario", {'id_usuario': id_usuario})
+        if not cursor.fetchone():
+            print(f"Nenhum registro encontrado com o ID {id_usuario}.")
+            return
+        
+        novo_nome = input("Digite o novo nome: ")
+        novo_email = input("Digite o novo e-mail: ")
+        novo_telefone = input("Digite o novo telefone: ")
+        
+        sql = """
+        UPDATE TBL_USUARIO 
+        SET nome = :novo_nome, email = :novo_email, telefone = :novo_telefone 
+        WHERE id_usuario = :id_usuario
+        """
+        cursor.execute(sql, {'novo_nome': novo_nome, 'novo_email': novo_email, 'novo_telefone': novo_telefone, 'id_usuario': id_usuario})
         conn.commit()
         print("Registro atualizado com sucesso.")
     except oracledb.DatabaseError as e:
-          raise ErroBanco(e)
-    
-def atualizar_registro_api(conn, id_saida, novo_nome):
-    try:
-        cursor = conn.cursor()
-        if not id_saida or not novo_nome:
-            raise ValueError("ID e nome não podem ser nulos ou vazios.")
-        sql = "UPDATE tabela_teste SET nome = :novo_nome WHERE id = :id_registro"
-        cursor.execute(sql, {'novo_nome': novo_nome, 'id_registro': id_saida})
-        conn.commit()  
-        print("Registro atualizado com sucesso.")
-        return {'nome': novo_nome, 'id': id_saida}
-    except oracledb.DatabaseError as e:
         raise ErroBanco(e)
-    finally:
-        cursor.close()
+
 
 def excluir_registro(conn):
     try:
         cursor = conn.cursor()
-        id_registro = int(input("Digite o ID do registro para excluir: "))
+        id_usuario = int(input("Digite o ID do registro para excluir: "))
         
-        sql = "DELETE FROM tabela_teste WHERE id = :id_registro"
-        cursor.execute(sql, {'id_registro': id_registro})
+        # Verificar se o ID existe
+        cursor.execute("SELECT * FROM TBL_USUARIO WHERE id_usuario = :id_usuario", {'id_usuario': id_usuario})
+        if not cursor.fetchone():
+            print(f"Nenhum registro encontrado com o ID {id_usuario}.")
+            return
+        
+        sql = "DELETE FROM TBL_USUARIO WHERE id_usuario = :id_usuario"
+        cursor.execute(sql, {'id_usuario': id_usuario})
         conn.commit()
         print("Registro excluído com sucesso.")
     except oracledb.DatabaseError as e:
-         raise ErroBanco(e)
-    
-def excluir_registro_api(conn, id_registro):
-    try:
-        cursor = conn.cursor()
-        sql = "DELETE FROM tabela_teste WHERE id = :id_registro"
-        cursor.execute(sql, {'id_registro': id_registro})
-        conn.commit()
-        print("Registro excluído com sucesso.")
-    except oracledb.DatabaseError as e:
-         raise ErroBanco(e)
-    
+        raise ErroBanco(e)
+
+
