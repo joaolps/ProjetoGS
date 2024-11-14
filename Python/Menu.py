@@ -1,6 +1,6 @@
 import oracledb
 from Banco import conectar_db  
-from Crud_Banco import inserir_registro, consultar_registros, atualizar_registro, excluir_registro, exportar_para_json
+from Usuario import inserir_registro, consultar_registros, atualizar_registro, excluir_registro, exportar_para_json
 from ErrorBanco import ErroBanco
 
 def exibir_menu():
