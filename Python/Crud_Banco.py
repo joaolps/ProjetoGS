@@ -2,7 +2,19 @@ import json
 import oracledb
 from ErrorBanco import ErroBanco
 import re
-from Banco import conectar_db
+
+def validar_cpf(cpf):
+    return len(str(cpf)) == 11 and cpf.isdigit()
+
+def validaTelefone(telefone):
+    if len(telefone) != 11:
+        raise Exception("Telefone Invalido")
+    
+def validarEmail(email):
+    # Regex para validar email
+    padrao = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(padrao, email):
+        raise Exception("Email Invalido")
 
 def exportar_para_json(dados, arquivo="consulta.json"):
     if not dados:
@@ -15,11 +27,6 @@ def exportar_para_json(dados, arquivo="consulta.json"):
     except Exception as e:
         raise ErroBanco(e)
 
-
-def validar_cpf(cpf):
-   
-    return len(str(cpf)) == 11 and cpf.isdigit()
-
 def inserir_registro(conn):
     try:
         cursor = conn.cursor()
@@ -31,7 +38,10 @@ def inserir_registro(conn):
             return
         
         email = input("Digite seu e-mail: ")
+        validarEmail(email)
+
         telefone = input("Digite seu telefone: ")
+        validaTelefone(telefone)
         
         # Validação simples do formato do e-mail
         if not re.match(r"[^@]+@[^@]+\.[^@]+", email):

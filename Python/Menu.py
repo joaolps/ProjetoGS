@@ -1,5 +1,5 @@
 import oracledb
-from Banco import conectar_db  # Supondo que conectar_db seja uma função que retorna a conexão com o banco
+from Banco import conectar_db  
 from Crud_Banco import inserir_registro, consultar_registros, atualizar_registro, excluir_registro, exportar_para_json
 from ErrorBanco import ErroBanco
 
@@ -23,8 +23,10 @@ def main():
             opcao = input("Escolha uma opção: ")
 
             if opcao == "1":
-                # Inserir novo registro
-                inserir_registro(conn)
+                try:
+                    inserir_registro(conn)
+                except Exception as MsgErro:
+                    print(MsgErro.args[0])
             elif opcao == "2":
                 # Consultar registros
                 consultar_registros(conn)
