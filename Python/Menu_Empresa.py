@@ -9,8 +9,7 @@ def exibir_menu():
     print("2. Consultar Empresa")
     print("3. Atualizar Empresa")
     print("4. Excluir Empresa")
-    print("5. Exportar Dados da Empresa")
-    print("6. Sair")
+    print("5. Sair")
     print("================")
 
 def main():
@@ -37,10 +36,7 @@ def main():
                 # Excluir um registro
                 excluir_registro(conn)
             elif opcao == "5":
-                # Exportar dados para JSON
-                registros = consultar_registros(conn)
-                if registros:
-                    exportar_para_json(registros)
+                consultar_registros(conn)
             elif opcao == "6":
                 # Sair do programa
                 print("Saindo...")

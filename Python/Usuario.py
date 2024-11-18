@@ -62,25 +62,30 @@ def inserir_registro(conn):
 def consultar_registros(conn):
     try:
         cursor = conn.cursor()
-        filtro = input("Digite um valor de filtro (ex: nome ou cpf): ").strip()
         
-        if not filtro:
-            print("Filtro vazio. Operação cancelada.")
-            return []
-        
-        sql = "SELECT * FROM TBL_USUARIO WHERE nome LIKE :filtro OR cpf LIKE :filtro"
-        cursor.execute(sql, {'filtro': f"%{filtro}%"})
+        # Consulta para obter todos os registros da tabela
+        sql = "SELECT * FROM TBL_USUARIO"
+        cursor.execute(sql)
         registros = cursor.fetchall()
         
         if not registros:
             print("Nenhum registro encontrado.")
-        else:
-            for registro in registros:
-                print(registro)
+            return []
         
-        return registros
+        colunas = [col[0] for col in cursor.description]
+        
+        registros_dict = [dict(zip(colunas, registro)) for registro in registros]
+        
+        exportar_para_json(registros_dict, arquivo="consulta_usuarios.json")
+        
+        print(f"{len(registros)} registro(s) encontrado(s):")
+        for registro in registros_dict:
+            print(registro)
+        
+        return registros_dict
     except Exception as e:
         raise ErroBanco(e)
+
 
 
 def atualizar_registro(conn):
