@@ -1,37 +1,29 @@
-from Crud_Banco import inserir_registro, consultar_registros, atualizar_registro, excluir_registro
-from Banco import conectar_db
+import Menu_Empresa
+import Menu_Usuario
 
-def menu():
-    conn = conectar_db
-    if conn is None:
-        return
+def exibir_menu_principal():
+    print("\n===== MENU PRINCIPAL =====")
+    print("1. Entrar como Usuario")
+    print("2. Entrar como Empresa")
+    print("3. Sair")
+    print("===========================")
 
+def main():
     while True:
-        print("\nMenu de Opções:")
-        print("1. Inserir Registro")
-        print("2. Consultar Registros")
-        print("3. Atualizar Registro")
-        print("4. Excluir Registro")
-        print("6. Sair")
-        
+        exibir_menu_principal()
         opcao = input("Escolha uma opção: ")
-        
-        if opcao == '1':
-            inserir_registro(conn)
-        elif opcao == '2':
-            consultar_registros(conn)
-        elif opcao == '3':
-            atualizar_registro(conn)
-        elif opcao == '4':
-            excluir_registro(conn)
-        elif opcao == '5':
+
+        if opcao == "1":
+            print("\nIniciando Menu USER...")
+            Menu_Usuario.main()  
+        elif opcao == "2":
+            print("\nIniciando Menu EMP...")
+            Menu_Empresa.main()  
+        elif opcao == "3":
             print("Saindo...")
             break
         else:
-            print("Opção inválida. Tente novamente.")
-    
-    conn.close()
+            print("Opção inválida! Tente novamente.")
 
-# Executa o menu ao rodar o arquivo
 if __name__ == "__main__":
-    menu()
+    main()
