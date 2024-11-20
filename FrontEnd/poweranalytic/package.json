@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@azure/app-configuration": "^1.8.0",
     "@azure/identity": "^4.5.0",
     "@azure/keyvault-secrets": "^4.9.0",
@@ -24,6 +25,14 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+=======
+    "next": "13.5.7",
+    "oracledb": "^6.7.0",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+>>>>>>> 3be6cae85c47a9713750aeb4dc36c2f6aad0d14d
     "@types/node": "^20",
     "@types/oracledb": "^6.5.2",
     "@types/react": "^18",
