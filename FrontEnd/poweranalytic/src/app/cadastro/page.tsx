@@ -1,6 +1,8 @@
 "use client";
-
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import React, { useState } from "react";
+import Link from "next/link"; // Importando o Link do Next.js
 
 export default function Cadastro() {
   const [formData, setFormData] = useState({
@@ -101,6 +103,14 @@ export default function Cadastro() {
             {mensagem}
           </p>
         )}
+        {/* Link para voltar à página principal */}
+        <Link href="/" passHref>
+          <button
+            className="mt-4 w-full p-3 bg-gray-600 text-white font-bold rounded hover:shadow-lg"
+          >
+            Voltar à Página Principal
+          </button>
+        </Link>
       </div>
     </div>
   );

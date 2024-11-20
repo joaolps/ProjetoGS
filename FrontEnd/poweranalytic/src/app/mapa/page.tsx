@@ -12,10 +12,23 @@ const Mapa = () => {
           Aqui você pode ver os locais com maior concentração de lixo eletrônico para que você possa colaborar com a reciclagem energética.
         </p>
         
-        {/* Aqui, você pode integrar um mapa interativo com Google Maps ou outra solução */}
-        <div className="w-full h-96 bg-gray-700">
-          {/* Exemplo de estrutura de mapa, adicione a biblioteca de mapa desejada */}
-          <p className="text-center text-white">Mapa interativo (Google Maps ou outra biblioteca).</p>
+        {/* Simulação de Mapa com Imagem de Fundo */}
+        <div 
+          className="w-full h-96 relative bg-cover bg-center" 
+          style={{ backgroundImage: "url('/mapa1.png')" }}
+        >
+          <div className="absolute top-20 left-20 bg-red-500 p-2 rounded-full text-white">
+            Local 1
+          </div>
+          <div className="absolute top-40 left-40 bg-blue-500 p-2 rounded-full text-white">
+            Local 2
+          </div>
+          <div className="absolute top-60 left-60 bg-green-500 p-2 rounded-full text-white">
+            Local 3
+          </div>
+          <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center text-white">
+            Mapa simulado de pontos de concentração de resíduos eletrônicos
+          </p>
         </div>
       </main>
       <Footer />

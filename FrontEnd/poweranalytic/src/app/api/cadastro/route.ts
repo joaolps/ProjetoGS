@@ -1,13 +1,13 @@
-import { NextRequest, NextResponse } from "next/server";
-import bcrypt from "bcrypt";
-import oracledb from "oracledb";
+import { NextRequest, NextResponse } from 'next/server';
+import bcrypt from 'bcrypt';
+import oracledb from 'oracledb';
 
 // Configuração para conexão com o banco de dados
 oracledb.initOracleClient();
 const dbConfig = {
-  user: "rm556865",
-  password: "100606",
-  connectString: "oracle.fiap.com.br:1521/ORCL",
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  connectString: process.env.DB_CONNECT_STRING,
 };
 
 export async function POST(req: NextRequest) {
@@ -36,12 +36,21 @@ export async function POST(req: NextRequest) {
     await connection.execute(sql, binds, { autoCommit: true });
     await connection.close();
 
-    return NextResponse.json({ message: "Usuário cadastrado com sucesso!" });
+    return NextResponse.json({ message: 'Usuário cadastrado com sucesso!' });
   } catch (error) {
-    console.error("Erro ao cadastrar usuário:", error);
-    return NextResponse.json(
-      { message: "Erro ao cadastrar usuário", error: error.message },
-      { status: 500 }
-    );
+    console.error('Erro ao cadastrar usuário:', error);
+
+    // Verificação se o erro é do tipo Error
+    if (error instanceof Error) {
+      return NextResponse.json(
+        { message: 'Erro ao cadastrar usuário', error: error.message },
+        { status: 500 }
+      );
+    } else {
+      return NextResponse.json(
+        { message: 'Erro ao cadastrar usuário', error: 'Erro desconhecido' },
+        { status: 500 }
+      );
+    }
   }
 }

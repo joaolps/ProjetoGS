@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  webpack: (config) => {
+      return config;
+  },
+}
 
-module.exports = nextConfig
+module.exports = nextConfig;

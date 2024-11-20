@@ -9,14 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@azure/app-configuration": "^1.8.0",
+    "@azure/identity": "^4.5.0",
+    "@azure/keyvault-secrets": "^4.9.0",
+    "@react-google-maps/api": "^2.20.3",
     "bcrypt": "^5.1.1",
+    "chart.js": "^4.4.6",
     "next": "13.5.7",
-    "oracledb": "^6.7.0",
+    "oci-common": "^2.99.0",
+    "oracledb": "^5.2.0",
     "react": "^18",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^20",
+    "@types/oracledb": "^6.5.2",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10",

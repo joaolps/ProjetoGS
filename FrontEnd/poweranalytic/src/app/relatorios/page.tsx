@@ -1,25 +1,60 @@
-// src/app/relatorios.tsx
+"use client";
+import { Line } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-const Relatorios = () => {
-  return (
-    <div className="bg-gray-900 text-white min-h-screen">
-      <Header />
-      <main className="flex flex-col items-center justify-center text-center px-6 py-16 space-y-8">
-        <h2 className="text-4xl font-bold text-neon-green shadow-lg">Relatórios de Reciclagem</h2>
-        <p className="max-w-2xl text-lg">
-          Acompanhe o impacto da reciclagem energética. Veja os dados atualizados sobre a quantidade de lixo eletrônico reciclado.
-        </p>
+// Registrar os componentes necessários do Chart.js
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-        <div className="space-y-4">
-          {/* Exemplo de gráficos ou dados (usando uma biblioteca de gráficos como Chart.js ou outra) */}
-          <div className="w-full bg-gray-800 p-4 rounded">
-            <p className="text-center">Gráfico de impacto da reciclagem</p>
-          </div>
-        </div>
-      </main>
-      <Footer />
+const Relatorios = () => {
+  // Simulação de dados para o gráfico
+  const data = {
+    labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio'], // Meses
+    datasets: [
+      {
+        label: 'Lixo Eletrônico Reciclado (kg)',
+        data: [100, 200, 150, 250, 300], // Quantidade de lixo reciclado
+        backgroundColor: 'rgba(0, 255, 0, 0.6)', // Cor de fundo das barras
+        borderColor: 'rgba(0, 255, 0, 1)', // Cor da borda das barras
+        borderWidth: 1,
+      },
+      {
+        label: 'Número de Peças Recicladas',
+        data: [150, 250, 200, 350, 400], // Número de peças recicladas
+        backgroundColor: 'rgba(0, 0, 255, 0.6)', // Cor de fundo das barras
+        borderColor: 'rgba(0, 0, 255, 1)', // Cor da borda das barras
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Quantidade de Lixo Eletrônico Reciclado e Número de Peças Recicladas',
+      },
+    },
+  };
+
+  return (
+    <div className="bg-gray-900 text-white min-h-screen py-16">
+      <Header />
+      <h2 className="text-4xl font-bold text-neon-green mb-8 text-center">Relatórios de Reciclagem Energética</h2>
+      <p className="text-lg text-center mb-8">
+        Acompanhe o impacto da reciclagem energética. Veja os dados atualizados sobre a quantidade de lixo eletrônico reciclado.
+      </p>
+
+      <div className="max-w-4xl mx-auto mb-8">
+        <Line data={data} options={options} />
+      </div>
+
+     <Footer />
     </div>
   );
 };
