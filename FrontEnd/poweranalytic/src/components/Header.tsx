@@ -25,6 +25,11 @@ const Header = () => {
           <Link href="/contato" className="text-lg hover:text-neon-green">
             Contato
           </Link>
+
+          <Link href="/conquistas" className="hover:text-neon-green">
+            Conquistas
+          </Link>
+
         </nav>
       </div>
     </header>
