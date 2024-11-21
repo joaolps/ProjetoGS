@@ -141,6 +141,7 @@ export default function Home() {
         <section className="flex flex-col items-center justify-center bg-gray-800 py-20">
   <h3 className="text-3xl font-bold text-neon-green mb-8">Nosso Time</h3>
   <div className="flex flex-wrap justify-center gap-8">
+    
     {/* Pedro */}
     <div className="flex flex-col items-center text-center">
       <div className="w-48 h-48 bg-white rounded-full overflow-hidden flex items-center justify-center transform transition duration-300 hover:scale-110 hover:shadow-xl hover:shadow-neon-green">
@@ -162,8 +163,8 @@ export default function Home() {
         <img src="/Thiago.jpg" alt="Thiago" className="w-full h-full object-cover" />
       </div>
       <div className="mt-4">
-        <p className="font-semibold">Thiago</p>
-        <p>RM: 558833</p>
+        <p className="font-semibold">Thiago Thomaz Sales Conceição </p>
+        <p>RM: 557992</p>
         <p>BackEnd Developer</p>
         <a href="https://github.com/thiago" target="_blank" rel="noopener noreferrer">
           <img src="/github.png" alt="GitHub" className="w-8 h-8 mt-2 mx-auto" />
@@ -177,8 +178,8 @@ export default function Home() {
         <img src="/Joao.jpg" alt="João" className="w-full h-full object-cover" />
       </div>
       <div className="mt-4">
-        <p className="font-semibold">João</p>
-        <p>RM: 558833</p>
+        <p className="font-semibold">João Lopes Coelho Neto </p>
+        <p>RM:556865</p>
         <p>BackEnd Developer</p>
         <a href="https://github.com/joao" target="_blank" rel="noopener noreferrer">
           <img src="/github.png" alt="GitHub" className="w-8 h-8 mt-2 mx-auto" />

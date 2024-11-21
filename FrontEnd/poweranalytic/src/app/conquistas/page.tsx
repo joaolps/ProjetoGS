@@ -40,7 +40,7 @@ export default function Conquistas() {
     <div className="bg-gray-900 text-white min-h-screen px-8 py-16">
         <Header />
       
-      <h1 className="text-4xl font-bold text-neon-green text-center mb-8">
+      <h1 className="text-4xl font-bold text-neon-green text-center mb-8 mt-12">
         Conquistas Sustentáveis
       </h1>
 

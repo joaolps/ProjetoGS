@@ -6,8 +6,8 @@ const Contato = () => {
   return (
     <div className="bg-gray-900 text-white min-h-screen">
       <Header />
-      <main className="flex flex-col items-center justify-center text-center px-6 py-16 space-y-8">
-        <h2 className="text-4xl font-bold text-neon-green shadow-lg">Contato</h2>
+      <main className="flex flex-col items-center justify-center text-center px-6 py-16 space-y-8 mt-12">
+        <h2 className="text-4xl font-bold text-neon-green shadow-lg ">Contato</h2>
         <p className="max-w-2xl text-lg">
           Se você tiver dúvidas ou deseja entrar em contato, preencha o formulário abaixo e nossa equipe entrará em contato com você.
         </p>

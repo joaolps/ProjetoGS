@@ -11,9 +11,6 @@ const Footer = () => {
         
         <div></div>
   
-        <Link href="/membros" className="text-lg hover:bg-neon-green hover:text-black py-2 px-4 transition-all duration-300 ease-in-out rounded-md">
-            Membros
-        </Link>
       </footer>
     );
   };
