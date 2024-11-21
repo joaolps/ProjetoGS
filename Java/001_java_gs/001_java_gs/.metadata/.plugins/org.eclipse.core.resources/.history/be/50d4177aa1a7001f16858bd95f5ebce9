@@ -1,0 +1,189 @@
+package br.com.fiap.main;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
+import br.com.fiap.beans.Usuario;
+import br.com.fiap.beans.Material;
+import br.com.fiap.beans.EmpresaParceira;
+import br.com.fiap.beans.EnvioMaterial;
+import br.com.fiap.beans.Ranking;
+
+import br.com.fiap.dao.UsuarioDAO;
+import br.com.fiap.dao.MaterialDAO;
+import br.com.fiap.dao.EmpresaParceiraDAO;
+import br.com.fiap.dao.EnvioMaterialDAO;
+import br.com.fiap.dao.RankingDAO;
+
+public class TesteAtualizar {
+
+	// Método para capturar uma string
+	static String texto(String j) {
+		return JOptionPane.showInputDialog(j);
+	}
+
+	// Método para capturar um inteiro
+	static int inteiro(String j) {
+		return Integer.parseInt(JOptionPane.showInputDialog(j));
+	}
+
+	// Método para capturar um valor real
+	static double real(String j) {
+		return Double.parseDouble(JOptionPane.showInputDialog(j));
+	}
+
+	// Método para exibir os registros para o usuário
+	static <T> String exibirRegistros(List<T> registros) {
+		StringBuilder sb = new StringBuilder();
+		for (T registro : registros) {
+			sb.append(registro.toString()).append("\n"); // Assume que o método toString() está bem definido
+		}
+		return sb.toString();
+	}
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		// Menu de opções
+		String[] options = { "Atualizar Usuario", "Atualizar Material", "Atualizar Empresa Parceira",
+				"Atualizar Envio Material", "Atualizar Ranking" };
+
+		// Exibe o menu
+		int escolha = JOptionPane.showOptionDialog(null, "Escolha a opção de atualizar:", "Menu Atualizar",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+		switch (escolha) {
+		case 0: // Atualizar Usuario
+			UsuarioDAO daoUsuario = new UsuarioDAO();
+			List<Usuario> usuarios = daoUsuario.selecionar();
+			String usuariosList = exibirRegistros(usuarios);
+			if (usuariosList.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Não há usuários para atualizar.");
+				return;
+			}
+			int idUsuario = Integer.parseInt(
+					JOptionPane.showInputDialog("Escolha o ID do Usuario a ser atualizado:\n" + usuariosList));
+			Usuario usuario = daoUsuario.buscarPorId(idUsuario); // Supondo que você tenha implementado buscarPorId no
+																	// DAO
+			if (usuario == null) {
+				JOptionPane.showMessageDialog(null, "Usuario não encontrado.");
+				return;
+			}
+
+			usuario.setNome(texto("Novo Nome:"));
+			usuario.setEmail(texto("Novo Email:"));
+			usuario.setTelefone(texto("Novo Telefone:"));
+
+			daoUsuario.atualizar(usuario);
+			JOptionPane.showMessageDialog(null, "Usuário atualizado com sucesso!");
+			break;
+
+		case 1: // Atualizar Material
+			MaterialDAO daoMaterial = new MaterialDAO();
+			List<Material> materiais = daoMaterial.selecionar();
+			String materiaisList = exibirRegistros(materiais);
+			if (materiaisList.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Não há materiais para atualizar.");
+				return;
+			}
+			int idMaterial = Integer.parseInt(
+					JOptionPane.showInputDialog("Escolha o ID do Material a ser atualizado:\n" + materiaisList));
+			Material material = daoMaterial.buscarPorId(idMaterial); // Supondo que você tenha implementado buscarPorId
+																		// no DAO
+			if (material == null) {
+				JOptionPane.showMessageDialog(null, "Material não encontrado.");
+				return;
+			}
+
+			material.setNome(texto("Novo Nome:"));
+			material.setDescricao(texto("Nova Descrição:"));
+			material.setData_cadastro(texto("Nova Data de Cadastro:"));
+
+			daoMaterial.atualizar(material);
+			JOptionPane.showMessageDialog(null, "Material atualizado com sucesso!");
+			break;
+
+		case 2: // Atualizar Empresa Parceira
+			EmpresaParceiraDAO daoEmpresa = new EmpresaParceiraDAO();
+			List<EmpresaParceira> empresas = daoEmpresa.selecionar();
+			String empresasList = exibirRegistros(empresas);
+			if (empresasList.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Não há empresas parceiras para atualizar.");
+				return;
+			}
+			int idParceiro = Integer.parseInt(
+					JOptionPane.showInputDialog("Escolha o ID da Empresa Parceira a ser atualizada:\n" + empresasList));
+			EmpresaParceira empresa = daoEmpresa.buscarPorId(idParceiro); // Supondo que você tenha implementado
+																			// buscarPorId no DAO
+			if (empresa == null) {
+				JOptionPane.showMessageDialog(null, "Empresa Parceira não encontrada.");
+				return;
+			}
+
+			empresa.setNome(texto("Novo Nome:"));
+			empresa.setEmail(texto("Novo Email:"));
+			empresa.setTelefone(texto("Novo Telefone:"));
+			empresa.setCnpj(texto("Novo CNPJ:"));
+			empresa.setEndereco(texto("Novo Endereço:"));
+			empresa.setData_cadastro(texto("Nova Data de Cadastro:"));
+
+			daoEmpresa.atualizar(empresa);
+			JOptionPane.showMessageDialog(null, "Empresa Parceira atualizada com sucesso!");
+			break;
+
+		case 3: // Atualizar Envio Material
+			EnvioMaterialDAO daoEnvio = new EnvioMaterialDAO();
+			List<EnvioMaterial> envios = daoEnvio.selecionar();
+			String enviosList = exibirRegistros(envios);
+			if (enviosList.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Não há envios de materiais para atualizar.");
+				return;
+			}
+			int idEnvio = Integer.parseInt(
+					JOptionPane.showInputDialog("Escolha o ID do Envio Material a ser atualizado:\n" + enviosList));
+			EnvioMaterial envio = daoEnvio.buscarPorId(idEnvio); // Supondo que você tenha implementado buscarPorId no
+																	// DAO
+			if (envio == null) {
+				JOptionPane.showMessageDialog(null, "Envio de Material não encontrado.");
+				return;
+			}
+
+			envio.setId_usuario(inteiro("Novo ID de Usuario:"));
+			envio.setId_material(inteiro("Novo ID de Material:"));
+			envio.setId_parceiro(inteiro("Novo ID de Empresa Parceira:"));
+			envio.setQuantidade(inteiro("Nova Quantidade:"));
+			envio.setData_envio(texto("Nova Data de Envio:"));
+
+			daoEnvio.atualizar(envio);
+			JOptionPane.showMessageDialog(null, "Envio de Material atualizado com sucesso!");
+			break;
+
+		case 4: // Atualizar Ranking
+			RankingDAO daoRanking = new RankingDAO();
+			List<Ranking> rankings = daoRanking.selecionar();
+			String rankingsList = exibirRegistros(rankings);
+			if (rankingsList.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Não há rankings para atualizar.");
+				return;
+			}
+			int idRanking = Integer.parseInt(
+					JOptionPane.showInputDialog("Escolha o ID do Ranking a ser atualizado:\n" + rankingsList));
+			Ranking ranking = daoRanking.buscarPorId(idRanking); // Supondo que você tenha implementado buscarPorId no
+																	// DAO
+			if (ranking == null) {
+				JOptionPane.showMessageDialog(null, "Ranking não encontrado.");
+				return;
+			}
+
+			ranking.setPontos(inteiro("Novos Pontos:"));
+			ranking.setUltimaAtualizacao(texto("Nova Última Atualização:"));
+
+			daoRanking.atualizar(ranking);
+			JOptionPane.showMessageDialog(null, "Ranking atualizado com sucesso!");
+			break;
+
+		default:
+			System.out.println("Opção inválida!");
+		}
+	}
+}

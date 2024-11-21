@@ -1,0 +1,92 @@
+package br.com.fiap.main;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
+import br.com.fiap.beans.EmpresaParceira;
+import br.com.fiap.beans.EnvioMaterial;
+import br.com.fiap.beans.Material;
+import br.com.fiap.beans.Ranking;
+import br.com.fiap.beans.Usuario;
+import br.com.fiap.bo.EmpresaParceiraBO;
+import br.com.fiap.bo.EnvioMaterialBO;
+import br.com.fiap.bo.MaterialBO;
+import br.com.fiap.bo.RankingBO;
+import br.com.fiap.bo.UsuarioBO;
+
+public class TesteSelecionar {
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		// Menu de opções
+		String[] options = { "Listar Usuarios", "Listar Materiais", "Listar Empresas Parceiras",
+				"Listar Envios de Materiais", "Listar Rankings" };
+
+		// Exibe o menu
+		int escolha = JOptionPane.showOptionDialog(null, "Escolha a opção de listar:", "Menu Listar",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+		switch (escolha) {
+		case 0: // Listar Usuarios
+			UsuarioBO usuarioBO = new UsuarioBO();
+			List<Usuario> listaUsuario = usuarioBO.selecionarBo();
+			if (!listaUsuario.isEmpty()) {
+				for (Usuario usuario : listaUsuario) {
+					System.out.println(usuario.getId_usuario() + " - " + usuario.getNome() + " - " + usuario.getCpf()
+							+ " - " + usuario.getEmail() + " - " + usuario.getTelefone());
+				}
+			}
+			break;
+
+		case 1: // Listar Materiais
+			MaterialBO materialBO = new MaterialBO();
+			List<Material> listaMaterial = materialBO.selecionarBo();
+			if (!listaMaterial.isEmpty()) {
+				for (Material material : listaMaterial) {
+					System.out.println(material.getId_material() + " - " + material.getNome() + " - "
+							+ material.getDescricao() + " - " + material.getData_cadastro());
+				}
+			}
+			break;
+
+		case 2: // Listar Empresas Parceiras
+			EmpresaParceiraBO empresaParceiraBO = new EmpresaParceiraBO();
+			List<EmpresaParceira> listaEmpresa = empresaParceiraBO.selecionarBo();
+			if (!listaEmpresa.isEmpty()) {
+				for (EmpresaParceira empresa : listaEmpresa) {
+					System.out.println(empresa.getId_parceiro() + " - " + empresa.getNome() + " - " + empresa.getEmail()
+							+ " - " + empresa.getTelefone() + " - " + empresa.getCnpj() + " - " + empresa.getEndereco()
+							+ " - " + empresa.getData_cadastro());
+				}
+			}
+			break;
+
+		case 3: // Listar Envios de Materiais
+			EnvioMaterialBO envioMaterialBO = new EnvioMaterialBO();
+			List<EnvioMaterial> listaEnvio = envioMaterialBO.selecionarBo();
+			if (!listaEnvio.isEmpty()) {
+				for (EnvioMaterial envio : listaEnvio) {
+					System.out.println(envio.getId_envio() + " - " + envio.getId_usuario() + " - "
+							+ envio.getId_material() + " - " + envio.getId_parceiro() + " - " + envio.getQuantidade()
+							+ " - " + envio.getData_envio());
+				}
+			}
+			break;
+
+		case 4: // Listar Rankings
+			RankingBO rankingBO = new RankingBO();
+			List<Ranking> listaRanking = rankingBO.selecionarBo();
+			if (!listaRanking.isEmpty()) {
+				for (Ranking ranking : listaRanking) {
+					System.out.println(ranking.getIdUsuario() + " - " + ranking.getPontos() + " - "
+							+ ranking.getUltima_atualizacao());
+				}
+			}
+			break;
+
+		default:
+			System.out.println("Opção inválida!");
+		}
+	}
+}

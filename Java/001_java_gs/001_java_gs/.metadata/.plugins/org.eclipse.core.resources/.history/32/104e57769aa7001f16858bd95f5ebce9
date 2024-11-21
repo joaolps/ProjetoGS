@@ -1,0 +1,10 @@
+package br.com.fiap.beans;
+
+import java.time.LocalDateTime;
+
+public class Material {
+	private int idMaterial;
+	private String nome;
+	private String descricao;
+	private LocalDateTime dataCadastro;
+}

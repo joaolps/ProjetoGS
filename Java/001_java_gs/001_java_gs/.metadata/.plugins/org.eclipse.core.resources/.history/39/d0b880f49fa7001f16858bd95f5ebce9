@@ -1,0 +1,92 @@
+package br.com.fiap.main;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.fiap.beans.Usuario;
+import br.com.fiap.dao.UsuarioDAO;
+
+import br.com.fiap.beans.Material;
+import br.com.fiap.dao.MaterialDAO;
+
+import br.com.fiap.beans.EmpresaParceira;
+import br.com.fiap.dao.EmpresaParceiraDAO;
+
+import br.com.fiap.beans.EnvioMaterial;
+import br.com.fiap.dao.EnvioMaterialDAO;
+
+import br.com.fiap.beans.Ranking;
+import br.com.fiap.dao.RankingDAO;
+
+public class TesteSelecionar {
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+
+		// Selecionar e listar todos os usuários
+		UsuarioDAO daoUsuario = new UsuarioDAO();
+		List<Usuario> listaUsuario = daoUsuario.selecionar();
+		if (!listaUsuario.isEmpty()) {
+			System.out.println("Lista de Usuários:");
+			for (Usuario usuario : listaUsuario) {
+				System.out.println(usuario.getId_usuario() + " - " + usuario.getNome() + " - " + usuario.getCpf()
+						+ " - " + usuario.getEmail() + " - " + usuario.getTelefone());
+			}
+		} else {
+			System.out.println("Nenhum usuário encontrado.");
+		}
+
+		// Selecionar e listar todos os materiais
+		MaterialDAO daoMaterial = new MaterialDAO();
+		List<Material> listaMaterial = daoMaterial.selecionar();
+		if (!listaMaterial.isEmpty()) {
+			System.out.println("\nLista de Materiais:");
+			for (Material material : listaMaterial) {
+				System.out.println(material.getId_material() + " - " + material.getNome() + " - "
+						+ material.getDescricao() + " - " + material.getData_cadastro());
+			}
+		} else {
+			System.out.println("Nenhum material encontrado.");
+		}
+
+		// Selecionar e listar todas as empresas parceiras
+		EmpresaParceiraDAO daoEmpresa = new EmpresaParceiraDAO();
+		List<EmpresaParceira> listaEmpresa = daoEmpresa.selecionar();
+		if (!listaEmpresa.isEmpty()) {
+			System.out.println("\nLista de Empresas Parceiras:");
+			for (EmpresaParceira empresa : listaEmpresa) {
+				System.out.println(empresa.getId_parceiro() + " - " + empresa.getNome() + " - " + empresa.getEmail()
+						+ " - " + empresa.getTelefone() + " - " + empresa.getCnpj() + " - " + empresa.getEndereco());
+			}
+		} else {
+			System.out.println("Nenhuma empresa parceira encontrada.");
+		}
+
+		// Selecionar e listar todos os envios de material
+		EnvioMaterialDAO daoEnvio = new EnvioMaterialDAO();
+		List<EnvioMaterial> listaEnvio = daoEnvio.selecionar();
+		if (!listaEnvio.isEmpty()) {
+			System.out.println("\nLista de Envio de Materiais:");
+			for (EnvioMaterial envio : listaEnvio) {
+				System.out.println(envio.getId_envio() + " - " + envio.getId_usuario() + " - " + envio.getId_material()
+						+ " - " + envio.getId_parceiro() + " - " + envio.getQuantidade() + " - "
+						+ envio.getData_envio());
+			}
+		} else {
+			System.out.println("Nenhum envio de material encontrado.");
+		}
+
+		// Selecionar e listar todos os rankings
+		RankingDAO daoRanking = new RankingDAO();
+		List<Ranking> listaRanking = daoRanking.selecionar();
+		if (!listaRanking.isEmpty()) {
+			System.out.println("\nLista de Rankings:");
+			for (Ranking ranking : listaRanking) {
+				System.out.println(
+						ranking.getIdUsuario() + " - " + ranking.getPontos() + " - " + ranking.getUltima_atualizacao());
+			}
+		} else {
+			System.out.println("Nenhum ranking encontrado.");
+		}
+	}
+}

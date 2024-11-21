@@ -1,0 +1,77 @@
+package br.com.fiap.main;
+
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
+import br.com.fiap.beans.Usuario;
+import br.com.fiap.dao.UsuarioDAO;
+
+import br.com.fiap.beans.Material;
+import br.com.fiap.dao.MaterialDAO;
+
+import br.com.fiap.beans.EmpresaParceira;
+import br.com.fiap.dao.EmpresaParceiraDAO;
+
+import br.com.fiap.beans.EnvioMaterial;
+import br.com.fiap.dao.EnvioMaterialDAO;
+
+import br.com.fiap.beans.Ranking;
+import br.com.fiap.dao.RankingDAO;
+
+public class TesteDeletar {
+
+	// Método para capturar inteiro
+	static int inteiro(String j) {
+		return Integer.parseInt(JOptionPane.showInputDialog(j));
+	}
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		// Menu de opções
+		String[] options = { "Deletar Usuario", "Deletar Material", "Deletar Empresa Parceira",
+				"Deletar Envio Material", "Deletar Ranking" };
+
+		// Exibe o menu
+		int escolha = JOptionPane.showOptionDialog(null, "Escolha a opção de deletar:", "Menu Deletar",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+		switch (escolha) {
+		case 0: // Deletar Usuario
+			Usuario objUsuario = new Usuario();
+			UsuarioDAO daoUsuario = new UsuarioDAO();
+			objUsuario.setId_usuario(inteiro("Digite o ID do Usuario a ser deletado"));
+			System.out.println(daoUsuario.deletar(objUsuario.getId_usuario()));
+			break;
+
+		case 1: // Deletar Material
+			Material objMaterial = new Material();
+			MaterialDAO daoMaterial = new MaterialDAO();
+			objMaterial.setId_material(inteiro("Digite o ID do Material a ser deletado"));
+			System.out.println(daoMaterial.deletar(objMaterial.getId_material()));
+			break;
+
+		case 2: // Deletar Empresa Parceira
+			EmpresaParceira objEmpresa = new EmpresaParceira();
+			EmpresaParceiraDAO daoEmpresa = new EmpresaParceiraDAO();
+			objEmpresa.setId_parceiro(inteiro("Digite o ID da Empresa Parceira a ser deletado"));
+			System.out.println(daoEmpresa.deletar(objEmpresa.getId_parceiro()));
+			break;
+
+		case 3: // Deletar Envio Material
+			EnvioMaterial objEnvio = new EnvioMaterial();
+			EnvioMaterialDAO daoEnvio = new EnvioMaterialDAO();
+			objEnvio.setId_envio(inteiro("Digite o ID do Envio Material a ser deletado"));
+			System.out.println(daoEnvio.deletar(objEnvio.getId_envio()));
+			break;
+
+		case 4: // Deletar Ranking
+			Ranking objRanking = new Ranking();
+			RankingDAO daoRanking = new RankingDAO();
+			objRanking.setIdUsuario(inteiro("Digite o ID do Ranking a ser deletado"));
+			System.out.println(daoRanking.deletar(objRanking.getIdUsuario()));
+			break;
+
+		default:
+			System.out.println("Opção inválida!");
+		}
+	}
+}

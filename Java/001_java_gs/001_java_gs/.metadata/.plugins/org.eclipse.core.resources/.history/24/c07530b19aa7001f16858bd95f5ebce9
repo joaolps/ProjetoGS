@@ -1,0 +1,13 @@
+package br.com.fiap.beans;
+
+import java.time.LocalDateTime;
+
+public class EmpresaParceira {
+	private int idParceiro;
+	private String nome;
+	private String email;
+	private String telefone;
+	private String cnpj;
+	private String endereco;
+	private LocalDateTime dataCadastro;
+}

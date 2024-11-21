@@ -1,0 +1,9 @@
+package br.com.fiap.beans;
+
+import java.time.LocalDateTime;
+
+public class Ranking {
+	private int idUsuario;
+	private int pontos;
+	private LocalDateTime ultimaAtualizacao;
+}
