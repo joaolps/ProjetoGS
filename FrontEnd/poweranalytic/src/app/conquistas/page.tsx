@@ -9,6 +9,7 @@ const desafios = [
   { id: 3, titulo: "Leve Lixo Eletrônico para Coleta", pontos: 150 },
 ];
 
+// Dados Mockados para simular ranking
 const usuariosMock = [
   { id_usuario: 1, nome: "Maria Silva", pontos: 1200 },
   { id_usuario: 2, nome: "João Pereira", pontos: 1100 },
@@ -18,9 +19,8 @@ const usuariosMock = [
 ];
 
 export default function Conquistas() {
-  // Estado para o ranking e usuário simulado
   const [usuarios, setUsuarios] = useState(usuariosMock);
-  const usuarioAtual = usuarios.find((u) => u.id_usuario === 1); // Usuário logado
+  const usuarioAtual = usuarios.find((u) => u.id_usuario === 1); 
 
   // Função para obter recompensa
   const obterRecompensa = (pontos: number) => {
@@ -31,7 +31,7 @@ export default function Conquistas() {
             ? { ...user, pontos: user.pontos + pontos }
             : user
         )
-        .sort((a, b) => b.pontos - a.pontos) // Ordenar ranking
+        .sort((a, b) => b.pontos - a.pontos) 
     );
   };
 
@@ -40,7 +40,7 @@ export default function Conquistas() {
     <div className="bg-gray-900 text-white min-h-screen px-8 py-16">
         <Header />
       
-      <h1 className="text-4xl font-bold text-neon-green text-center mb-8">
+      <h1 className="text-4xl font-bold text-neon-green text-center mb-8 mt-12">
         Conquistas Sustentáveis
       </h1>
 

@@ -30,7 +30,7 @@ export default function Cadastro() {
     /^\(\d{2}\) \d \d{4}-\d{4}$/.test(phone);
 
   const formatCPF = (value: string) => {
-    const cleanValue = value.replace(/\D/g, ""); // Remove caracteres não numéricos
+    const cleanValue = value.replace(/\D/g, ""); 
     if (cleanValue.length <= 3) return cleanValue;
     if (cleanValue.length <= 6)
       return `${cleanValue.slice(0, 3)}.${cleanValue.slice(3)}`;
@@ -43,8 +43,8 @@ export default function Cadastro() {
   };
 
   const formatPhone = (value: string) => {
-    const cleanValue = value.replace(/\D/g, ""); // Remove caracteres não numéricos
-    if (cleanValue.length === 0) return ""; // Permite limpar o campo
+    const cleanValue = value.replace(/\D/g, "");
+    if (cleanValue.length === 0) return ""; 
     if (cleanValue.length <= 2) return `(${cleanValue}`; 
     if (cleanValue.length <= 6)
       return `(${cleanValue.slice(0, 2)}) ${cleanValue.slice(2)}`;
