@@ -1,4 +1,4 @@
-// src/app/contato.tsx
+
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 

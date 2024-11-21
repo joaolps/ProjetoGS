@@ -1,4 +1,4 @@
-// src/app/mapa.tsx
+
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -12,7 +12,7 @@ const Mapa = () => {
           Aqui você pode ver os locais com maior concentração de lixo eletrônico para que você possa colaborar com a reciclagem energética.
         </p>
         
-        {/* Simulação de Mapa com Imagem de Fundo */}
+      
         <div 
           className="w-full h-96 relative bg-cover bg-center" 
           style={{ backgroundImage: "url('/mapa1.png')" }}

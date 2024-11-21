@@ -1,4 +1,4 @@
-/* src/components/Footer.tsx */
+//Componente Footer
 import Link from 'next/link';
 
 const Footer = () => {

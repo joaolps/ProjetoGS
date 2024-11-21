@@ -1,4 +1,3 @@
-// src/app/page.tsx
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -18,13 +17,13 @@ export default function Home() {
         </p>
         <div className="space-x-4">
           <Link
-            href="/cadastro"  // Link correto para a página de cadastro
+            href="/cadastro"  
             className="px-6 py-3 bg-neon-green text-gray-900 rounded shadow-md hover:shadow-lg"
           >
             Comece Agora
           </Link>
           <Link
-            href="/mapa"  // Link correto para a página de mapa
+            href="/mapa"  
             className="px-6 py-3 border border-neon-green text-neon-green rounded shadow-md hover:bg-neon-green hover:text-gray-900"
           >
             Ver Locais
@@ -138,6 +137,7 @@ export default function Home() {
           </Link>
         </div>
 
+{/* section para membros */}
         <section className="flex flex-col items-center justify-center bg-gray-800 py-20">
   <h3 className="text-3xl font-bold text-neon-green mb-8">Nosso Time</h3>
   <div className="flex flex-wrap justify-center gap-8">

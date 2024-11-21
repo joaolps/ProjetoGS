@@ -4,11 +4,11 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-// Registrar os componentes necessários do Chart.js
+
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const Relatorios = () => {
-  // Simulação de dados para o gráfico
+
   const data = {
     labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio'], 
     datasets: [

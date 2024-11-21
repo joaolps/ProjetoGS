@@ -1,3 +1,4 @@
+//Component Header
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -27,7 +28,7 @@ const Header = () => {
   return (
     <header className="bg-gray-900 text-white shadow-lg p-4 fixed top-0 w-full z-10 transition-all duration-300 ease-in-out">
       <div className="container mx-auto flex justify-between items-center">
-        {/* Logo à esquerda do título */}
+       
         <div className="flex items-center">
           <Image 
             src="/logopa.png" 
@@ -39,7 +40,7 @@ const Header = () => {
           <h1 className="text-3xl font-bold text-neon-green">PowerAnalytics</h1>
         </div>
 
-        {/* Menu hambúrguer no mobile */}
+       
         <div className="md:hidden">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -62,7 +63,7 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Navegação */}
+       
         <nav
           className={`${
             isMenuOpen ? "block" : "hidden"
