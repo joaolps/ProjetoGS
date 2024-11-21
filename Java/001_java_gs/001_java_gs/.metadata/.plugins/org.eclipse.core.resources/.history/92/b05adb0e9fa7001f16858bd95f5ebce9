@@ -1,0 +1,43 @@
+package br.com.fiap.main;
+
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
+import br.com.fiap.beans.Usuario;
+import br.com.fiap.dao.UsuarioDAO;
+
+public class TesteCadastro {
+
+	// Método para capturar texto
+	static String texto(String j) {
+		return JOptionPane.showInputDialog(j);
+	}
+
+	// Método para capturar inteiro
+	static int inteiro(String j) {
+		return Integer.parseInt(JOptionPane.showInputDialog(j));
+	}
+
+	// Método para capturar número real
+	static double real(String j) {
+		return Double.parseDouble(JOptionPane.showInputDialog(j));
+	}
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		// Instanciar objeto Usuario
+		Usuario objUsuario = new Usuario();
+
+		// Instanciar o DAO
+		UsuarioDAO dao = new UsuarioDAO();
+
+		// Capturar os dados via JOptionPane
+		objUsuario.setNome(texto("Nome"));
+		objUsuario.setCpf(texto("CPF"));
+		objUsuario.setEmail(texto("Email"));
+		objUsuario.setTelefone(texto("Telefone"));
+
+		// Inserir no banco e exibir a mensagem
+		System.out.println(dao.inserir(objUsuario));
+	}
+}

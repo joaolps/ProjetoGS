@@ -1,0 +1,77 @@
+package br.com.fiap.dao;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import br.com.fiap.beans.Usuario;
+
+public class UsuarioDAO {
+	private Connection connection;
+
+	// Construtor que recebe a conexão
+	public UsuarioDAO(Connection connection) {
+		this.connection = connection;
+	}
+
+	// Método para inserir um novo usuário
+	public void inserir(Usuario usuario) throws SQLException {
+		String sql = "INSERT INTO tbl_usuario (nome, cpf, email, telefone) VALUES (?, ?, ?, ?)";
+		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+			stmt.setString(1, usuario.getNome());
+			stmt.setString(2, usuario.getCpf());
+			stmt.setString(3, usuario.getEmail());
+			stmt.setString(4, usuario.getTelefone());
+			stmt.executeUpdate();
+		}
+	}
+
+	// Método para atualizar um usuário existente
+	public void atualizar(Usuario usuario) throws SQLException {
+		String sql = "UPDATE tbl_usuario SET nome = ?, cpf = ?, email = ?, telefone = ? WHERE id_usuario = ?";
+		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+			stmt.setString(1, usuario.getNome());
+			stmt.setString(2, usuario.getCpf());
+			stmt.setString(3, usuario.getEmail());
+			stmt.setString(4, usuario.getTelefone());
+			stmt.setInt(5, usuario.getId_usuario());
+			stmt.executeUpdate();
+		}
+	}
+
+	// Método para excluir um usuário pelo ID
+	public void excluir(int idUsuario) throws SQLException {
+		String sql = "DELETE FROM tbl_usuario WHERE id_usuario = ?";
+		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+			stmt.setInt(1, idUsuario);
+			stmt.executeUpdate();
+		}
+	}
+
+	// Método para buscar um usuário pelo ID
+	public Usuario buscarPorId(int idUsuario) throws SQLException {
+		String sql = "SELECT * FROM tbl_usuario WHERE id_usuario = ?";
+		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+			stmt.setInt(1, idUsuario);
+			try (ResultSet rs = stmt.executeQuery()) {
+				if (rs.next()) {
+					return new Usuario(rs.getInt("id_usuario"), rs.getString("nome"), rs.getString("cpf"),
+							rs.getString("email"), rs.getString("telefone"));
+				}
+			}
+		}
+		return null; // Retorna null se o usuário não for encontrado
+	}
+
+	// Método para listar todos os usuários
+	public List<Usuario> listarTodos() throws SQLException {
+		String sql = "SELECT * FROM tbl_usuario";
+		List<Usuario> usuarios = new ArrayList<>();
+		try (PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+			while (rs.next()) {
+				usuarios.add(new Usuario(rs.getInt("id_usuario"), rs.getString("nome"), rs.getString("cpf"),
+						rs.getString("email"), rs.getString("telefone")));
+			}
+		}
+		return usuarios;
+	}
+}

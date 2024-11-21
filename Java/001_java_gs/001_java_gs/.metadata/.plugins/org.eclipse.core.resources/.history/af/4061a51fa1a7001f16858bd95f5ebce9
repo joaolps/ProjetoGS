@@ -1,0 +1,132 @@
+package br.com.fiap.main;
+
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
+import br.com.fiap.beans.Usuario;
+import br.com.fiap.bo.UsuarioBO;
+
+import br.com.fiap.beans.Material;
+import br.com.fiap.bo.MaterialBO;
+
+import br.com.fiap.beans.EmpresaParceira;
+import br.com.fiap.bo.EmpresaParceiraBO;
+
+import br.com.fiap.beans.EnvioMaterial;
+import br.com.fiap.bo.EnvioMaterialBO;
+
+import br.com.fiap.beans.Ranking;
+import br.com.fiap.bo.RankingBO;
+
+public class TesteAtualizar {
+
+	// Método para capturar um texto
+	static String texto(String j) {
+		return JOptionPane.showInputDialog(j);
+	}
+
+	// Método para capturar um número inteiro
+	static int inteiro(String j) {
+		return Integer.parseInt(JOptionPane.showInputDialog(j));
+	}
+
+	// Método para capturar um número real
+	static double real(String j) {
+		return Double.parseDouble(JOptionPane.showInputDialog(j));
+	}
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		// Menu de opções
+		String[] options = { "Atualizar Usuario", "Atualizar Material", "Atualizar Empresa Parceira",
+				"Atualizar Envio Material", "Atualizar Ranking" };
+
+		// Exibe o menu
+		int escolha = JOptionPane.showOptionDialog(null, "Escolha a opção de atualizar:", "Menu Atualizar",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+		switch (escolha) {
+		case 0: // Atualizar Usuario
+			UsuarioBO usuarioBO = new UsuarioBO();
+			int idUsuario = inteiro("Insira o ID do Usuario a ser atualizado");
+			String nomeUsuario = texto("Novo Nome");
+			String emailUsuario = texto("Novo Email");
+			String telefoneUsuario = texto("Novo Telefone");
+
+			Usuario usuario = new Usuario();
+			usuario.setId_usuario(idUsuario);
+			usuario.setNome(nomeUsuario);
+			usuario.setEmail(emailUsuario);
+			usuario.setTelefone(telefoneUsuario);
+
+			System.out.println(usuarioBO.atualizarBo(usuario));
+			break;
+
+		case 1: // Atualizar Material
+			MaterialBO materialBO = new MaterialBO();
+			int idMaterial = inteiro("Insira o ID do Material a ser atualizado");
+			String nomeMaterial = texto("Novo Nome");
+			String descricaoMaterial = texto("Nova Descrição");
+
+			Material material = new Material();
+			material.setId_material(idMaterial);
+			material.setNome(nomeMaterial);
+			material.setDescricao(descricaoMaterial);
+
+			System.out.println(materialBO.atualizarBo(material));
+			break;
+
+		case 2: // Atualizar Empresa Parceira
+			EmpresaParceiraBO empresaParceiraBO = new EmpresaParceiraBO();
+			int idEmpresa = inteiro("Insira o ID da Empresa Parceira a ser atualizada");
+			String nomeEmpresa = texto("Novo Nome");
+			String emailEmpresa = texto("Novo Email");
+			String telefoneEmpresa = texto("Novo Telefone");
+
+			EmpresaParceira empresaParceira = new EmpresaParceira();
+			empresaParceira.setId_parceiro(idEmpresa);
+			empresaParceira.setNome(nomeEmpresa);
+			empresaParceira.setEmail(emailEmpresa);
+			empresaParceira.setTelefone(telefoneEmpresa);
+
+			System.out.println(empresaParceiraBO.atualizarBo(empresaParceira));
+			break;
+
+		case 3: // Atualizar Envio Material
+			EnvioMaterialBO envioMaterialBO = new EnvioMaterialBO();
+			int idEnvio = inteiro("Insira o ID do Envio Material a ser atualizado");
+			int idUsuarioEnvio = inteiro("Novo ID de Usuario");
+			int idMaterialEnvio = inteiro("Novo ID de Material");
+			int idParceiroEnvio = inteiro("Novo ID de Parceiro");
+			int quantidadeEnvio = inteiro("Nova Quantidade");
+			String dataEnvio = texto("Nova Data de Envio");
+
+			EnvioMaterial envioMaterial = new EnvioMaterial();
+			envioMaterial.setId_envio(idEnvio);
+			envioMaterial.setId_usuario(idUsuarioEnvio);
+			envioMaterial.setId_material(idMaterialEnvio);
+			envioMaterial.setId_parceiro(idParceiroEnvio);
+			envioMaterial.setQuantidade(quantidadeEnvio);
+			envioMaterial.setData_envio(dataEnvio);
+
+			System.out.println(envioMaterialBO.atualizarBo(envioMaterial));
+			break;
+
+		case 4: // Atualizar Ranking
+			RankingBO rankingBO = new RankingBO();
+			int idRanking = inteiro("Insira o ID do Ranking a ser atualizado");
+			int pontosRanking = inteiro("Novo número de Pontos");
+			String ultimaAtualizacao = texto("Nova Data de Última Atualização");
+
+			Ranking ranking = new Ranking();
+			ranking.setIdUsuario(idRanking);
+			ranking.setPontos(pontosRanking);
+			ranking.setUltima_atualizacao(ultimaAtualizacao);
+
+			System.out.println(rankingBO.atualizarBo(ranking));
+			break;
+
+		default:
+			System.out.println("Opção inválida!");
+		}
+	}
+}

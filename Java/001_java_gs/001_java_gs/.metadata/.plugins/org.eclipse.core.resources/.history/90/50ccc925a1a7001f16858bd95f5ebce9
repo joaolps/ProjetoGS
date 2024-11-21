@@ -1,0 +1,164 @@
+package br.com.fiap.main;
+
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import java.util.List;
+
+import br.com.fiap.beans.Usuario;
+import br.com.fiap.dao.UsuarioDAO;
+
+import br.com.fiap.beans.Material;
+import br.com.fiap.dao.MaterialDAO;
+
+import br.com.fiap.beans.EmpresaParceira;
+import br.com.fiap.dao.EmpresaParceiraDAO;
+
+import br.com.fiap.beans.EnvioMaterial;
+import br.com.fiap.dao.EnvioMaterialDAO;
+
+import br.com.fiap.beans.Ranking;
+import br.com.fiap.dao.RankingDAO;
+
+public class TesteAtualizar {
+
+	// Método para capturar texto
+	static String texto(String j) {
+		return JOptionPane.showInputDialog(j);
+	}
+
+	// Método para capturar inteiro
+	static int inteiro(String j) {
+		return Integer.parseInt(JOptionPane.showInputDialog(j));
+	}
+
+	// Método para capturar um número real
+	static double real(String j) {
+		return Double.parseDouble(JOptionPane.showInputDialog(j));
+	}
+
+	// Método para capturar uma lista de objetos e exibir para o usuário escolher um ID
+	static <T> String exibirRegistros(List<T> registros) {
+		StringBuilder sb = new StringBuilder();
+		for (T registro : registros) {
+			sb.append(registro.toString()).append("\n"); // Assume que o método toString() está bem definido
+		}
+		return sb.toString();
+	}
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		// Menu de opções
+		String[] options = { 
+			"Atualizar Usuario", 
+			"Atualizar Material", 
+			"Atualizar Empresa Parceira",
+			"Atualizar Envio Material", 
+			"Atualizar Ranking" 
+		};
+
+		// Exibe o menu
+		int escolha = JOptionPane.showOptionDialog(null, "Escolha a opção de atualizar:", "Menu Atualizar",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+		switch (escolha) {
+		case 0: // Atualizar Usuario
+			UsuarioDAO daoUsuario = new UsuarioDAO();
+			List<Usuario> usuarios = daoUsuario.selecionar();
+			String usuariosList = exibirRegistros(usuarios);
+			if (usuariosList.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Não há usuários para atualizar.");
+				return;
+			}
+			int idUsuario = Integer.parseInt(JOptionPane.showInputDialog("Escolha o ID do Usuario a ser atualizado:\n" + usuariosList));
+			Usuario usuario = daoUsuario.buscarPorId(idUsuario);
+			
+			// Atualiza os dados do usuário
+			usuario.setNome(texto("Novo Nome"));
+			usuario.setEmail(texto("Novo Email"));
+			usuario.setTelefone(texto("Novo Telefone"));
+			
+			// Realiza a atualização
+			System.out.println(daoUsuario.atualizar(usuario));
+			break;
+
+		case 1: // Atualizar Material
+			MaterialDAO daoMaterial = new MaterialDAO();
+			List<Material> materiais = daoMaterial.selecionar();
+			String materiaisList = exibirRegistros(materiais);
+			if (materiaisList.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Não há materiais para atualizar.");
+				return;
+			}
+			int idMaterial = Integer.parseInt(JOptionPane.showInputDialog("Escolha o ID do Material a ser atualizado:\n" + materiaisList));
+			Material material = daoMaterial.buscarPorId(idMaterial);
+			
+			// Atualiza os dados do material
+			material.setNome(texto("Novo Nome"));
+			material.setDescricao(texto("Nova Descrição"));
+			
+			// Realiza a atualização
+			System.out.println(daoMaterial.atualizar(material));
+			break;
+
+		case 2: // Atualizar Empresa Parceira
+			EmpresaParceiraDAO daoEmpresa = new EmpresaParceiraDAO();
+			List<EmpresaParceira> empresas = daoEmpresa.selecionar();
+			String empresasList = exibirRegistros(empresas);
+			if (empresasList.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Não há empresas parceiras para atualizar.");
+				return;
+			}
+			int idEmpresa = Integer.parseInt(JOptionPane.showInputDialog("Escolha o ID da Empresa Parceira a ser atualizada:\n" + empresasList));
+			EmpresaParceira empresaParceira = daoEmpresa.buscarPorId(idEmpresa);
+			
+			// Atualiza os dados da empresa parceira
+			empresaParceira.setNome(texto("Novo Nome"));
+			empresaParceira.setEmail(texto("Novo Email"));
+			empresaParceira.setTelefone(texto("Novo Telefone"));
+			
+			// Realiza a atualização
+			System.out.println(daoEmpresa.atualizar(empresaParceira));
+			break;
+
+		case 3: // Atualizar Envio Material
+			EnvioMaterialDAO daoEnvio = new EnvioMaterialDAO();
+			List<EnvioMaterial> envios = daoEnvio.selecionar();
+			String enviosList = exibirRegistros(envios);
+			if (enviosList.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Não há envios de material para atualizar.");
+				return;
+			}
+			int idEnvio = Integer.parseInt(JOptionPane.showInputDialog("Escolha o ID do Envio Material a ser atualizado:\n" + enviosList));
+			EnvioMaterial envioMaterial = daoEnvio.buscarPorId(idEnvio);
+			
+			// Atualiza os dados do envio
+			envioMaterial.setQuantidade(inteiro("Nova Quantidade"));
+			envioMaterial.setData_envio(texto("Nova Data de Envio"));
+			
+			// Realiza a atualização
+			System.out.println(daoEnvio.atualizar(envioMaterial));
+			break;
+
+		case 4: // Atualizar Ranking
+			RankingDAO daoRanking = new RankingDAO();
+			List<Ranking> rankings = daoRanking.selecionar();
+			String rankingsList = exibirRegistros(rankings);
+			if (rankingsList.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Não há rankings para atualizar.");
+				return;
+			}
+			int idRanking = Integer.parseInt(JOptionPane.showInputDialog("Escolha o ID do Ranking a ser atualizado:\n" + rankingsList));
+			Ranking ranking = daoRanking.buscarPorId(idRanking);
+			
+			// Atualiza os dados do ranking
+			ranking.setPontos(inteiro("Novo número de Pontos"));
+			ranking.setUltima_atualizacao(texto("Nova Data de Última Atualização"));
+			
+			// Realiza a atualização
+			System.out.println(daoRanking.atualizar(ranking));
+			break;
+
+		default:
+			System.out.println("Opção inválida!");
+		}
+	}
+}

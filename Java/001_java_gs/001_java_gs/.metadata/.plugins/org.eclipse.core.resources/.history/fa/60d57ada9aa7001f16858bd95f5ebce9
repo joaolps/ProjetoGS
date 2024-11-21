@@ -1,0 +1,12 @@
+package br.com.fiap.beans;
+
+import java.time.LocalDateTime;
+
+public class EnvioMaterial {
+	private int idEnvio;
+	private int idUsuario;
+	private int idMaterial;
+	private int idParceiro;
+	private int quantidade;
+	private LocalDateTime dataEnvio;
+}

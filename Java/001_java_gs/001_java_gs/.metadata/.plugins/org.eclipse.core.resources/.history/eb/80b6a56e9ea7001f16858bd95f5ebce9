@@ -1,0 +1,119 @@
+package br.com.fiap.main;
+
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
+import br.com.fiap.beans.Aluno;
+import br.com.fiap.beans.Usuario;
+import br.com.fiap.beans.EmpresaParceira;
+import br.com.fiap.beans.Ranking;
+import br.com.fiap.beans.Material;
+import br.com.fiap.beans.EnvioMaterial;
+import br.com.fiap.dao.AlunoDAO;
+import br.com.fiap.dao.UsuarioDAO;
+import br.com.fiap.dao.EmpresaParceiraDAO;
+import br.com.fiap.dao.RankingDAO;
+import br.com.fiap.dao.MaterialDAO;
+import br.com.fiap.dao.EnvioMaterialDAO;
+
+public class TesteCadastro {
+
+	// Método para capturar texto
+	static String texto(String j) {
+		return JOptionPane.showInputDialog(j);
+	}
+
+	// Método para capturar inteiro
+	static int inteiro(String j) {
+		return Integer.parseInt(JOptionPane.showInputDialog(j));
+	}
+
+	// Método para capturar número real
+	static double real(String j) {
+		return Double.parseDouble(JOptionPane.showInputDialog(j));
+	}
+
+	// Método para cadastrar Aluno
+	static void cadastrarAluno() throws ClassNotFoundException, SQLException {
+		Aluno objAluno = new Aluno();
+		AlunoDAO dao = new AlunoDAO();
+
+		objAluno.setRm(inteiro("RM"));
+		objAluno.setNome(texto("Nome"));
+		objAluno.setTurma(texto("Turma"));
+		objAluno.setNota(real("Nota"));
+
+		System.out.println(dao.inserir(objAluno));
+	}
+
+	// Método para cadastrar Usuario
+	static void cadastrarUsuario() throws ClassNotFoundException, SQLException {
+		Usuario objUsuario = new Usuario();
+		UsuarioDAO dao = new UsuarioDAO();
+
+		objUsuario.setNome(texto("Nome"));
+		objUsuario.setCpf(texto("CPF"));
+		objUsuario.setEmail(texto("Email"));
+		objUsuario.setTelefone(texto("Telefone"));
+
+		System.out.println(dao.inserir(objUsuario));
+	}
+
+	// Método para cadastrar Empresa Parceira
+	static void cadastrarEmpresaParceira() throws ClassNotFoundException, SQLException {
+		EmpresaParceira objEmpresa = new EmpresaParceira();
+		EmpresaParceiraDAO dao = new EmpresaParceiraDAO();
+
+		objEmpresa.setNome(texto("Nome da Empresa Parceira"));
+		objEmpresa.setCnpj(texto("CNPJ"));
+		objEmpresa.setEndereco(texto("Endereço"));
+
+		System.out.println(dao.inserir(objEmpresa));
+	}
+
+	// Método para cadastrar Ranking
+	static void cadastrarRanking() throws ClassNotFoundException, SQLException {
+		Ranking objRanking = new Ranking();
+		RankingDAO dao = new RankingDAO();
+
+		objRanking.setIdUsuario(inteiro("ID Usuario"));
+		objRanking.setPontos(inteiro("Pontos"));
+		objRanking.setUltimaAtualizacao(java.time.LocalDateTime.now());
+
+		System.out.println(dao.inserir(objRanking));
+	}
+
+	// Método para cadastrar Material
+	static void cadastrarMaterial() throws ClassNotFoundException, SQLException {
+		Material objMaterial = new Material();
+		MaterialDAO dao = new MaterialDAO();
+
+		objMaterial.setDescricao(texto("Descrição do Material"));
+		objMaterial.setQuantidade(inteiro("Quantidade"));
+
+		System.out.println(dao.inserir(objMaterial));
+	}
+
+	// Método para cadastrar Envio de Material
+	static void cadastrarEnvioMaterial() throws ClassNotFoundException, SQLException {
+		EnvioMaterial objEnvioMaterial = new EnvioMaterial();
+		EnvioMaterialDAO dao = new EnvioMaterialDAO();
+
+		objEnvioMaterial.setIdMaterial(inteiro("ID Material"));
+		objEnvioMaterial.setIdUsuario(inteiro("ID Usuario"));
+		objEnvioMaterial.setDataEnvio(java.time.LocalDateTime.now());
+
+		System.out.println(dao.inserir(objEnvioMaterial));
+	}
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		// Chamar os métodos de cadastro para cada tipo de entidade
+		cadastrarAluno();
+		cadastrarUsuario();
+		cadastrarEmpresaParceira();
+		cadastrarRanking();
+		cadastrarMaterial();
+		cadastrarEnvioMaterial();
+	}
+}
