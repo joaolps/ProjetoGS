@@ -1,15 +1,19 @@
 /* src/components/Footer.tsx */
+import Link from 'next/link';
+
 const Footer = () => {
     return (
       <footer className="flex justify-between items-center py-4 px-8 bg-transparent text-white">
-        {/* Botão Contato */}
-        <button className="hover:text-gray-400">Contato</button>
+          <Link href="/contato" className="text-lg hover:bg-neon-green hover:text-black py-2 px-4 transition-all duration-300 ease-in-out rounded-md">
+            Contatos
+          </Link>
   
-        {/* Espaço vazio ao centro */}
+        
         <div></div>
   
-        {/* Botão Membros */}
-        <button className="hover:text-gray-400">Membros</button>
+        <Link href="/membros" className="text-lg hover:bg-neon-green hover:text-black py-2 px-4 transition-all duration-300 ease-in-out rounded-md">
+            Membros
+        </Link>
       </footer>
     );
   };

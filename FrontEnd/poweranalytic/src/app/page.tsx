@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className="bg-gray-900 text-white min-h-screen">
       <Header />
-      <main className="flex flex-col items-center justify-center text-center px-6 py-16 space-y-8">
+      <main className="flex flex-col items-center justify-center text-center px-6 py-16 space-y-8 mt-12">
         <h2 className="text-4xl font-bold text-neon-green shadow-lg">
           Juntos pela Sustentabilidade
         </h2>
@@ -70,6 +70,21 @@ export default function Home() {
           </div>
         </section>
 
+        <h2 className="text-4xl font-bold text-neon-green shadow-lg">
+          Veja o quanto voce nos ajuda e ajuda o mundo!
+        </h2>
+        <p className="max-w-2xl text-lg">
+          PowerAnalytics te mostra por meio de gráficos o quanto de lixo eletrônico esta sendo reciclado!
+        </p>
+        <div className="space-x-4">
+          
+          <Link
+            href="/relatorios"
+            className="px-6 py-3 border border-neon-green text-neon-green rounded shadow-md hover:bg-neon-green hover:text-gray-900"
+          >
+           Checar!
+          </Link>
+        </div>
         
         <section className="flex flex-col items-center justify-center bg-gray-800 text-white py-20 h-screen">
           <h3 className="text-3xl font-bold mb-8 text-neon-green">Nossos Valores</h3>
@@ -109,6 +124,19 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <p className="max-w-2xl text-lg">
+          Dúvidas? Sugestões? FeedBacks? Entre em contato com a PowerAnalytics!
+        </p>
+        <div className="space-x-4">
+          
+          <Link
+            href="/contato"
+            className="px-6 py-3 border border-neon-green text-neon-green rounded shadow-md hover:bg-neon-green hover:text-gray-900"
+          >
+           Fale Conosco!
+          </Link>
+        </div>
 
         <section className="flex flex-col items-center justify-center bg-gray-800 py-20">
   <h3 className="text-3xl font-bold text-neon-green mb-8">Nosso Time</h3>
