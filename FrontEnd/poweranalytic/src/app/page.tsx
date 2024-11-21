@@ -145,7 +145,7 @@ export default function Home() {
     {/* Pedro */}
     <div className="flex flex-col items-center text-center">
       <div className="w-48 h-48 bg-white rounded-full overflow-hidden flex items-center justify-center transform transition duration-300 hover:scale-110 hover:shadow-xl hover:shadow-neon-green">
-        <img src="/Pedro.jpg" alt="Pedro Henrique Jorge De Paula" className="w-full h-full object-cover" />
+        <img src="/Pedro2.jpg" alt="Pedro Henrique Jorge De Paula" className="w-full h-full object-cover" />
       </div>
       <div className="mt-4">
         <p className="font-semibold">Pedro Henrique Jorge De Paula</p>

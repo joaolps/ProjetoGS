@@ -26,6 +26,51 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+h2, h3, p {
+  word-wrap: break-word; /* Quebra de linha para palavras longas */
+}
+
+h2 {
+  font-size: 2rem; /* Tamanho menor para telas pequenas */
+}
+
+p {
+  font-size: 1rem; /* Ajuste para fontes menores */
+  padding: 0 1rem; /* Espaçamento interno para evitar cortes */
+}
+
+.space-x-4 a {
+  display: inline-block; /* Garante alinhamento adequado */
+  margin: 0.5rem; /* Espaçamento entre links */
+}
+
+@media (max-width: 768px) {
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  p {
+    font-size: 0.875rem;
+  }
+
+  .flex-wrap {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .w-full {
+    width: 100%;
+  }
+
+  .h-screen {
+    height: auto;
+  }
+}
+
 .bg-gradient {
   background: linear-gradient(to bottom, #050505, #0f9d58);
   min-height: 100vh;
