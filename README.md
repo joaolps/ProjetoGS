@@ -4,6 +4,9 @@ Repositório criado para o desenvolvimento da GlobalSolution.
 # Power Analytics 
 A PowerAnalytics é uma plataforma inovadora que promove a reciclagem sustentável de lixo eletrônico, convertendo resíduos em energia limpa e materiais reutilizáveis. Atuando como ponte entre comunidades, empresas e recicladores, a PowerAnalytics visa transformar o impacto ambiental negativo da tecnologia em uma solução de energia renovável e reaproveitamento de recursos. Através de comissões, recompensas e rankings, a plataforma incentiva a participação ativa, promovendo sustentabilidade e responsabilidade coletiva.
 
+![Descrição da Imagem](/logopa.png)
+
+
 A PowerAnalytics ataca dois grandes problemas: o acúmulo de lixo eletrônico e a crescente demanda por energia e recursos naturais. Eis como a solução funciona:
 1.	Coleta e Destinação: Usuários entregam dispositivos eletrônicos obsoletos ou quebrados para reciclagem.
 2.	Processamento: O lixo eletrônico é tratado em centros especializados. Componentes como metais e plásticos são separados e reaproveitados, evitando a extração mineral e a contaminação ambiental.
