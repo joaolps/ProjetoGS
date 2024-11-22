@@ -1,0 +1,107 @@
+package br.com.fiap.main;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
+import br.com.fiap.beans.Cliente;
+import br.com.fiap.beans.Funcionario;
+import br.com.fiap.beans.Empresa;
+import br.com.fiap.dao.ClienteDAO;
+import br.com.fiap.dao.FuncionarioDAO;
+import br.com.fiap.dao.EmpresaDAO;
+
+public class TesteAtualizar {
+
+	// Método para capturar um número inteiro
+	static int inteiro(String mensagem) {
+		return Integer.parseInt(JOptionPane.showInputDialog(mensagem));
+	}
+
+	// Método para capturar um texto
+	static String texto(String mensagem) {
+		return JOptionPane.showInputDialog(mensagem);
+	}
+
+	// Método para exibir registros e permitir a escolha de um ID
+	static <T> String exibirRegistros(List<T> registros) {
+		StringBuilder sb = new StringBuilder();
+		for (T registro : registros) {
+			sb.append(registro.toString()).append("\n"); // Necessário que toString() seja bem definido
+		}
+		return sb.toString();
+	}
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		// Menu de opções
+		String[] opcoes = { "Atualizar Cliente", "Atualizar Funcionario", "Atualizar Empresa" };
+		int escolha = JOptionPane.showOptionDialog(null, "Escolha a opção de atualizar:", "Menu Atualizar",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+
+		switch (escolha) {
+		case 0: // Atualizar Cliente
+			ClienteDAO clienteDAO = new ClienteDAO();
+			List<Cliente> clientes = clienteDAO.selecionar();
+			String listaClientes = exibirRegistros(clientes);
+			if (listaClientes.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Não há clientes para atualizar.");
+				return;
+			}
+			int idCliente = inteiro("Escolha o ID do Cliente a ser atualizado:\n" + listaClientes);
+			Cliente cliente = clienteDAO.buscarPorId(idCliente);
+			if (cliente != null) {
+				cliente.setNome(texto("Novo Nome:"));
+				cliente.setTelefone(texto("Novo Telefone:"));
+				clienteDAO.atualizar(cliente);
+				JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso!");
+			} else {
+				JOptionPane.showMessageDialog(null, "Cliente não encontrado.");
+			}
+			break;
+
+		case 1: // Atualizar Funcionario
+			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			List<Funcionario> funcionarios = funcionarioDAO.selecionar();
+			String listaFuncionarios = exibirRegistros(funcionarios);
+			if (listaFuncionarios.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Não há funcionários para atualizar.");
+				return;
+			}
+			int idFuncionario = inteiro("Escolha o ID do Funcionário a ser atualizado:\n" + listaFuncionarios);
+			Funcionario funcionario = funcionarioDAO.buscarPorId(idFuncionario);
+			if (funcionario != null) {
+				funcionario.setNome(texto("Novo Nome:"));
+				funcionario.setTelefone(texto("Novo Telefone:"));
+				funcionarioDAO.atualizar(funcionario);
+				JOptionPane.showMessageDialog(null, "Funcionário atualizado com sucesso!");
+			} else {
+				JOptionPane.showMessageDialog(null, "Funcionário não encontrado.");
+			}
+			break;
+
+		case 2: // Atualizar Empresa
+			EmpresaDAO empresaDAO = new EmpresaDAO();
+			List<Empresa> empresas = empresaDAO.selecionar();
+			String listaEmpresas = exibirRegistros(empresas);
+			if (listaEmpresas.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Não há empresas para atualizar.");
+				return;
+			}
+			int idEmpresa = inteiro("Escolha o ID da Empresa a ser atualizada:\n" + listaEmpresas);
+			Empresa empresa = empresaDAO.buscarPorId(idEmpresa);
+			if (empresa != null) {
+				empresa.setNome(texto("Novo Nome da Empresa:"));
+				empresa.setCnpj(texto("Novo CNPJ:"));
+				empresaDAO.atualizar(empresa);
+				JOptionPane.showMessageDialog(null, "Empresa atualizada com sucesso!");
+			} else {
+				JOptionPane.showMessageDialog(null, "Empresa não encontrada.");
+			}
+			break;
+
+		default:
+			JOptionPane.showMessageDialog(null, "Opção inválida!");
+		}
+	}
+}
