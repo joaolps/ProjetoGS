@@ -1,0 +1,8 @@
+127.0.0.1 - - [22/Nov/2024:11:50:24 -0300] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [22/Nov/2024:11:50:24 -0300] "GET /ProjetoGS/WEB-INF/classes/br/com/fiap/resource/UsuarioResource.java HTTP/1.1" 404 682
+0:0:0:0:0:0:0:1 - - [22/Nov/2024:11:50:24 -0300] "GET /favicon.ico HTTP/1.1" 404 762
+0:0:0:0:0:0:0:1 - - [22/Nov/2024:11:50:49 -0300] "GET /ProjetoGS/rest/usuario HTTP/1.1" 200 498
+127.0.0.1 - - [22/Nov/2024:12:03:13 -0300] "GET /ProjetoGS/rest/usuario HTTP/1.1" 200 498
+127.0.0.1 - - [22/Nov/2024:12:04:21 -0300] "GET /ProjetoGS/rest/usuario HTTP/1.1" 200 498
+127.0.0.1 - - [22/Nov/2024:12:04:35 -0300] "POST /ProjetoGS/rest/usuario HTTP/1.1" 201 -
+127.0.0.1 - - [22/Nov/2024:12:05:31 -0300] "GET /ProjetoGS/rest/usuario HTTP/1.1" 200 602

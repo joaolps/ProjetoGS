@@ -1,7 +1,0 @@
-INDEX VERSION 1.4+C:\Users\joaoc\OneDrive\Documentos\1TDSPF\02 - java\001_java_gs\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-3007992700.index
-1026083418.index
-3568680062.index
-2022545348.index
-924637031.index
-2552740935.index
